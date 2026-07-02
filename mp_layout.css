@@ -34,7 +34,9 @@ body {
 	padding-right: 4.55%;
 	clear: none;
 	float: none;
-	min-height: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 	/* Updated menu layout by separating prices into a right-aligned span inside each <dt> and removing prices from the <dd> descriptions. */
 }
 nav {
@@ -144,7 +146,7 @@ footer {
 	color: white;	
 	text-align: center;
 	font-size: 10px;
-	margin-top: 100px;
+	margin-top: auto;
 	font-family: "Lato", serif;	clear: both;
 	padding-top: 2px;
 	padding-bottom: 1px;
@@ -296,7 +298,7 @@ article div h1 {
 	font-weight: normal;
 	font-size: 1em;
 	border-bottom: 1px solid rgb(151, 151, 151);
-	background-color: #ffdcdb;
+
 }
 
 article div p {
@@ -354,6 +356,20 @@ and set link color and text size, then created circular icon badges with a dark 
 for phone and email links, with the phone icon adjusted smaller to visually balance against the mail icon.
 
 */
+
+#main-body{
+	margin-bottom: 100px;
+}
+#contacts hr {
+    border: none;
+    border-top: 2px solid #D4A882;
+    margin: 0;
+}
+
+#contacts hr:last-of-type {
+    margin-top: 70px;
+}
+
 #contacts {
 
 	text-align: center;
@@ -404,6 +420,7 @@ for phone and email links, with the phone icon adjusted smaller to visually bala
 	clear: both;
 	font-size: 16px;
 	margin-top: 100px;
+	margin-bottom: 100px;
 }
 
 #enjoy-text p{
@@ -431,6 +448,75 @@ for phone and email links, with the phone icon adjusted smaller to visually bala
     font-size: 0.9em;
     font-weight: normal;
     color: #222;
-	font-style: italic;	
-	/* Updated menu layout by separating prices into a right-aligned span inside each <dt> and removing prices from the <dd> descriptions. */
+	font-style: italic;	/* Updated menu layout by separating prices into a right-aligned span inside each <dt> and removing prices from the <dd> descriptions. */
+}
+
+
+/* ===== EVENTS PAGE ===== */
+#events-body {
+
+	width: 80%;
+	margin: 40px auto;
+
+}
+
+#events-body h1 {
+
+	text-align: center;
+	margin-bottom: 30px;
+
+}
+
+#events-body article div {
+
+	background-color: #FBF6F2;
+	border-left: 5px solid #8B1A1A;
+	border-radius: 6px;
+	padding: 15px 20px;
+	margin-bottom: 18px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+#events-body article div:hover {
+
+	transform: translateY(-3px);
+	box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+
+}
+
+#events-body article div h1 {
+
+	text-align: left;
+	margin: 0 0 8px;
+	font-size: 1.2em;
+	color: #8B1A1A;
+
+}
+
+#events-body article div p {
+	margin: 0;
+	line-height: 1.5;
+	font-size: 0.95em;
+	color: #333;
+
+}
+#events-body article {
+    width: 100%;
+    float: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+#events-body article > h1 {
+    grid-column: 1 / -1;
+}
+
+#events-body article div {
+
+    float: none;
+    width: auto;
+    margin: 0;
 }
