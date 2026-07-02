@@ -79,10 +79,22 @@ body article h1 {
 	font-size: 1.15em;
 }
 
+header{
+	background: #5A1A25;
+	background: radial-gradient(circle, #FFFFFF 0%, #AF5D5D 50%, #5A1A25 100%);
+	position: relative; /* needed so the logo can sit on top */
+	height: 120px;
+
+	/*Changed to have a gradient header.*/
+}
 header img {
 	float: none;
-	width: 96%;
-	margin: 2% 2% 0% 2%;
+	width: 300px;
+	margin-top: -50px;
+	display: block;
+	margin-left: auto; margin-right: auto; /*Centres the Image*/
+
+
 }
 body p, body address {
 	margin: 3.5% 1%;
@@ -186,26 +198,28 @@ article img {
 	margin: 0% 2% 2% 2%;
 }
 nav ul li {
-	display: table-cell;
-	width: 15%;
+	font-family: "EB Garamond";
 	text-align: center;
-	margin-right: 2%;
-	border: thin solid rgba(127,96,17,1.00);
-	border-collapse: collapse;
+	margin-top: 10px;
+	/* removed display:flex, width:3%, justify-content (moved to parent ul) */
 }
 nav ul li a {
 	margin-bottom: 0;
 }
 nav {
-	display: table;
-	width: 96%;
+	width: 100%;
 	margin: 0 auto;
 	float: none;
 }
 nav ul {
-	display: table-row;
+	display: flex; /* was table-row, broke centering */
+	justify-content: center; /* centers nav links */
+	align-items: center;
+	gap: 3%; /* replaces width:3% hack for spacing */
 	margin: 0;
+	margin-bottom: -8px
 }
+
 nav ul li:last-of-type {
 	margin-right: 0%;
 }
@@ -274,7 +288,7 @@ html, body {
 }
 
 html {
-	background-color: #953e3c;
+	background-color: #8b1a1a;
 	margin: 0px auto;
 }
 body {
@@ -286,9 +300,9 @@ body {
 	clear: none;
 	float: none;
 	background-color: white;
-	-moz-box-shadow: rgba(31, 61, 31, 0.9) 20px 0px 25px,  rgba(31, 61, 31, 0.9) -20px 0px 25px;
-	-webkit-box-shadow: rgba(31, 61, 31, 0.9) 20px 0px 25px,  rgba(31, 61, 31, 0.9) -20px 0px 25px;
-	box-shadow: rgba(31, 61, 31, 0.9) 20px 0px 25px,  rgba(31, 61, 31, 0.9) -20px 0px 25px;
+	-moz-box-shadow: #5f0d0d 20px 0px 25px, #f0f0f0 -20px 0px 25px;
+	-webkit-box-shadow: #5e0808 20px 0px 25px, #f0f0f0 -20px 0px 25px;
+	box-shadow: #e4abab 20px 0px 25px, #f0f0f0 -20px 0px 25px;
 }
 
 article div h1 {

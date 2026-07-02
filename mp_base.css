@@ -8,6 +8,7 @@
 
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 /* =============================================
 	HTML5 structural elements
@@ -16,6 +17,7 @@
 
 article, aside, details, dl, figcaption, figure, footer, header, main, nav, section {
 	display: block;
+
 }
 
 
@@ -37,6 +39,9 @@ body {
 	margin: 0;
 	font-size: 1em;
 	line-height: 1.4;
+	background-color: #f0f0f0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+
 }
 
 
@@ -83,9 +88,10 @@ hr {
 	display: block;
 	height: 1px;
 	border: 0;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #C0C0C0;
 	margin: 1em 0;
 	padding: 0;
+	width: 100%;
 }
 ins {
 	background: #ff9;
@@ -134,9 +140,18 @@ sub {
 
 /* =============================================
 	Default list styles
+
+
    =============================================
 */
 
+/* List so that its side by side */
+.horizontal-list{
+	display: flex; /*This makes it horizontal*/
+	gap: 15px; /*Adds gap, self explanatory*/
+	justify-content: center; /*Centers the nav links*/
+	font-size: 10px;
+}
 ul, ol {
 	margin: 1em 0;
 	padding: 0 0 0 40px;
@@ -167,8 +182,8 @@ figure {
 }
 audio, canvas, video {
 	display: inline-block;
-*display: inline;
-*zoom: 1;
+ 	display: inline;
+	zoom: 1;
 }
 
 
@@ -190,7 +205,7 @@ label {
 }
 legend {
 	border: 0;
-*margin-left: -7px;
+ 	margin-left: -7px;
 	padding: 0;
 	white-space: normal;
 }
@@ -198,7 +213,7 @@ button, input, select, textarea {
 	font-size: 100%;
 	margin: 0;
 	vertical-align: baseline;
-*vertical-align: middle;
+ 	vertical-align: middle;
 }
 button, input {
 	line-height: normal;
@@ -206,7 +221,7 @@ button, input {
 button, input[type="button"], input[type="reset"], input[type="submit"] {
 	cursor: pointer;
 	-webkit-appearance: button;
-*overflow: visible;
+	overflow: visible;
 }
 button[disabled], input[disabled] {
 	cursor: default;
@@ -214,8 +229,8 @@ button[disabled], input[disabled] {
 input[type="checkbox"], input[type="radio"] {
 	box-sizing: border-box;
 	padding: 0;
-*width: 13px;
-*height: 13px;
+	width: 13px;
+	height: 13px;
 }
 input[type="search"] {
 	-webkit-appearance: textfield;
