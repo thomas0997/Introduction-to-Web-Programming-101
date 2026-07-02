@@ -505,18 +505,27 @@ for phone and email links, with the phone icon adjusted smaller to visually bala
 #events-body article {
     width: 100%;
     float: none;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
+    display: block;
 
+}
 #events-body article > h1 {
     grid-column: 1 / -1;
 }
 
 #events-body article div {
-
     float: none;
-    width: auto;
-    margin: 0;
+    width: 100%;
+    margin: 0 0 20px 0;
+    box-sizing: border-box;
+
+}
+
+/* First 4 cards */
+#events-body article div:nth-of-type(-n+4) {
+    grid-column: span 1;
+}
+
+/* Last 3 cards */
+#events-body article div:nth-of-type(n+5) {
+    grid-column: span 4;
 }
