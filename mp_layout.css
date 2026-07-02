@@ -15,7 +15,10 @@
    =============================================
 */
 
+
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 html {
 	height: 100%;
 	font-size: 14px;
@@ -32,6 +35,7 @@ body {
 	clear: none;
 	float: none;
 	min-height: 100%;
+	/* Updated menu layout by separating prices into a right-aligned span inside each <dt> and removing prices from the <dd> descriptions. */
 }
 nav {
 	width: 25%;
@@ -39,10 +43,12 @@ nav {
 	margin: 6% 2% 0% 0%;
 }
 article {
+	font-family: 'Lato';
 	width: 73%;
 	float: left;
-	font-size: 0.8em;
+	font-size: 0.7em;
 	text-align: left;
+
 }
 
 nav ul li {
@@ -60,8 +66,10 @@ nav ul li a:visited {
 	color: #222;
 }
 nav ul li a:hover {
-	background-color: #b34a48;
-	color: white;
+
+	color: #8b1a1a;
+	text-decoration: underline;
+	transition: all 0.3s ease;
 }
 nav ul li a:focus {
 	outline: thin dotted;
@@ -71,8 +79,12 @@ nav ul li a:hover, nav ul li a:active {
 }
 body h1 {
 	margin: 1%;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	font-family: "EB Garamond", serif;
 	font-size: 1.5em;
+	color: #8B1A1A;
+	/*Changed font and color style*/
+	
+
 }
 
 body article h1 {
@@ -105,29 +117,38 @@ body p, body address {
 }
 dl {
 	margin-left: 2%;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	font-family: "Lato", serif;	clear: both;
 }
 dt {
-	display: block;
-	margin: 0;
-	text-indent: 0;
-	font-weight: bold;
-	border-bottom: 1px solid rgba(168, 168, 168,1.00);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #C0C0C0;
+    font-weight: bold;
+    font-size: 20px;
+    color: #8B1A1A;
+    font-family: "EB Garamond", serif;
+	margin-top: 30px;
 }
 dd {
 	display: block;
 	margin: 0 0 3% 3%;
 	text-indent: 0;
+	font-size: 15px;
 }
 
 footer {
+	background-color: #5A1A25;
+	color: white;	
 	text-align: center;
-	font-size: 0.6em;
-	margin-top: 4%;
-	border-top: 3px outset #cf7b79;
-	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-	clear: both;
-	padding-bottom: 20px;
+	font-size: 10px;
+	margin-top: 100px;
+	font-family: "Lato", serif;	clear: both;
+	padding-top: 2px;
+	padding-bottom: 1px;
+	/*Removed Border, Changed to add a solid background color, Changed font color to white, font to lato*/
 }
 
 article aside h1 {
@@ -147,7 +168,8 @@ article div h1 {
 	font-weight: bold;
 }
 
-article p, article address {font-family: "Times New Roman", Times, serif;}
+article p, article address {font-family: "Lato", serif;}
+/*Change font from times new roman to Lato*/
 /* =============================================
 	Tablet layout styles used by devices
 	481px to 768px and cascaded to larger 
@@ -168,6 +190,9 @@ body {
 	clear: none;
 	float: none;
 	margin-left: auto;
+	  min-height: 100dvh; 
+  margin: 0;
+
 }
 
 header h1 {
@@ -179,9 +204,10 @@ body article h1 {
 }
 
 article {
-	width: 94%;
+	width: 60%;
 	float: none;
 	margin: 0px auto;
+	margin-top: 70px;
 }
 dl#ct_locations {
 	width: 57%;
@@ -200,16 +226,25 @@ article img {
 nav ul li {
 	font-family: "EB Garamond";
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 15px;
 	/* removed display:flex, width:3%, justify-content (moved to parent ul) */
 }
 nav ul li a {
 	margin-bottom: 0;
 }
+
+nav ul li a.active, nav ul li a.active:visited {
+    color: #8B1A1A;
+    text-decoration: underline;
+}
+
 nav {
 	width: 100%;
 	margin: 0 auto;
 	float: none;
+	position: relative;
+
+    z-index: 1;
 }
 nav ul {
 	display: flex; /* was table-row, broke centering */
@@ -229,13 +264,13 @@ article ul {
 }
 
 article aside {
-	float: right;
-	margin: 0 0 20px 20px;
+	margin-top: -20px;
 	padding: 1%;
-	border: 1px solid rgb(251, 151, 151);
-	width: 35%;
-	font-size: 0.9em;
-	background-color: #ffdcdb;
+	width: 100%;
+	/*
+	Changes made:
+	Removed Border, Border color, Background color, Adjusted width
+	*/
 }
 
 article aside h1 {
@@ -265,15 +300,12 @@ article div h1 {
 }
 
 article div p {
+
 	font-size: 0.85em;
 	text-align: left;
 }
 
-footer {
-	font-size: 0.9em;
 }
-}
-
 
 
 /* =============================================
@@ -313,4 +345,92 @@ article div p {
 	font-size: 0.95em;
 }
 
+}
+
+/*=========== NEW CUSTOM ADDITIONS ============
+Styled the Contact Us section with a centered layout and soft background, 
+added spacing around the heading and links, removed link underlines (shown on hover instead) 
+and set link color and text size, then created circular icon badges with a dark maroon background 
+for phone and email links, with the phone icon adjusted smaller to visually balance against the mail icon.
+
+*/
+#contacts {
+
+	text-align: center;
+	background-color: #FBF6F2;
+}
+#contacts h1{
+	margin-top: 60px;
+}
+#contacts a {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: black;
+	text-decoration: none;
+	margin: 0 15px;
+	margin-top: 10px;
+	font-size: 15px;
+}
+
+#contacts a:hover {
+	text-decoration: underline;
+}
+
+.icon-circle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: #5A1A25;
+	color: #D4A0A0;
+	padding-top:-0px;
+	font-size: 1.5em;
+}
+.icon-phone {
+	background-color: #5A1A25;
+	font-size: 0.55em;
+	width: 26px;
+	height: 26px;
+
+}
+
+
+#enjoy-text {
+	width: 60%;
+	margin: auto;
+	clear: both;
+	font-size: 16px;
+	margin-top: 100px;
+}
+
+#enjoy-text p{
+	font-size: 13px;
+}
+
+/*======MENU ADDITIONAL CSS COMMENTS========*/
+#menu-body{
+	font-size: 10px;
+	margin-top: 40px;
+	width: 65%;
+	margin: auto;
+}
+
+#menu-body h1{
+	margin-top: 40px;
+	text-align: center;
+	font-size: 30px;
+}
+
+#menu-body dl{
+	margin-top: 50px;
+}
+.price {
+    font-size: 0.9em;
+    font-weight: normal;
+    color: #222;
+	font-style: italic;	
+	/* Updated menu layout by separating prices into a right-aligned span inside each <dt> and removing prices from the <dd> descriptions. */
 }
