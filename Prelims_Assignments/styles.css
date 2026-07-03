@@ -4,7 +4,7 @@
     --brown-light: #794022;
     --tan: #C5B5A6;
     --white: #FFFFFF;
-    --accent-gold: #D99937;
+    --accent-gold: #B27A01;
 
     --font-body: 'Geist', sans-serif;
     --font-display: 'EB Garamond', serif;
@@ -21,15 +21,22 @@
 * {
     box-sizing: border-box;
 }
-
+html {
+    background-color: #e7e1db;
+    margin: 0;
+    padding: 0;
+}
 body {
-   font-family: var(--font-body);
-    background-color: var(--tan);
+    font-family: var(--font-body);
+    background: linear-gradient(to bottom, #C5B5A6 0%, #C5B5A6 85%, #2D0C05 100%);
     margin: 20px;
     border: 6px solid var(--brown-dark);
     border-radius: var(--radius);
+    box-shadow: 
+        0 0 15px rgba(73, 35, 16, 0.6),
+        0 0 30px rgba(73, 35, 16, 0.4),
+        0 0 50px rgba(73, 35, 16, 0.2);
 }
-
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -38,10 +45,11 @@ body {
 }
 
 header {
-    background-color: var(--brown-dark);
+    background: linear-gradient(to right, #C5B5A6 0%, #794022 55%, #2D0C05 100%);
     color: var(--tan);
     padding-top: 15px;
     padding-bottom: 15px;
+    
     width: 100%;
 }
 
@@ -64,8 +72,8 @@ header {
 }
 
 .logo-text {
-    font-family: var(--font-display);
-    color: var(--tan);
+    font-family: var(--font-body);
+    color: var(--brown-light);
     font-size: 22px;
     font-weight: bold;
     margin: 0;
@@ -77,6 +85,7 @@ nav ul {
     padding: 0;
     display: flex;
     gap: var(--space-sm);
+    padding-right: 50px;
 }
 
 nav ul li a {
@@ -111,7 +120,6 @@ hr::after {
     color: var(--brown-dark);
     font-size: 14px;
 }
-
 header + hr {
     margin: 0 auto;
     height: 3px;
@@ -131,7 +139,7 @@ img.about-image {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--radius);
+
 }
 
 .hero-text {
@@ -156,7 +164,7 @@ img.about-image {
 }
 
 h1, h2 {
-    color: var(--brown-darkest);
+    color: var(--brown-dark);
     font-family: var(--font-display);
     text-align: center;
     font-size: 30px;
@@ -165,10 +173,13 @@ h1, h2 {
 #about {
     text-align: center;
     padding: var(--space-lg) 0;
+    margin-left:100px;
+    margin-right:100px;
 }
 
 #about hr {
     margin: 15px auto 35px auto;
+
     height: 2px;
     background: linear-gradient(to right, transparent, var(--brown-dark), transparent);
 }
@@ -199,6 +210,8 @@ article p {
     flex-wrap: wrap;
     gap: var(--space-sm);
     padding: var(--space-lg) 0;
+        margin-left:100px;
+    margin-right:100px;
 }
 
 .menu-box {
@@ -209,6 +222,14 @@ article p {
     padding: var(--space-sm);
     border-radius: var(--radius);
     text-align: center;
+    
+}
+
+.menu-box:hover {
+    background-color: var(--brown-light);
+    color: var(--white);
+    transform: translateY(-5px);
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .box-image {
@@ -237,6 +258,33 @@ article p {
     gap: var(--space-lg);
     text-align: left;
     padding: var(--space-lg) 0;
+        margin-left:100px;
+    margin-right:100px;
+}
+#contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+    text-align: center;
+}
+
+#contact-section .contact-col {
+    width: 100%;
+    max-width: 400px;
+}
+
+#contact-section .contact-col h2 {
+    text-align: center;
+}
+
+#contact-section .contact-col ul {
+    text-align: center;
+}
+#contact-section .contact-col:last-child {
+    border-left: none;
+    padding-left: 0;
 }
 
 .contact-col {
@@ -265,6 +313,10 @@ article p {
     text-decoration: underline;
 }
 
+.contact-col:last-child {
+    border-left: 2px solid var(--brown-light);
+    padding-left: var(--space-lg);
+}
 .table-hours {
     width: 100%;
     border-collapse: separate;
