@@ -97,6 +97,7 @@ header{
 	position: relative; /* needed so the logo can sit on top */
 	height: 70px;
 
+
 	/*Changed to have a gradient header.*/
 }
 header img {
@@ -105,7 +106,7 @@ header img {
 	margin-top: -50px;
 	display: block;
 	margin-left: auto; margin-right: auto; /*Centres the Image*/
-
+	margin-bottom: -45px;
 
 }
 body p, body address {
@@ -578,3 +579,97 @@ for phone and email links, with the phone icon adjusted smaller to visually bala
 	font-size: 0.8em;
 }
 
+
+
+/* =============================================
+   CHANGE LOG — mp_base.css
+   Updated by: [Your Name] | July 2026
+   =============================================
+
+   This version reverts mp_base.css back closer to the original
+   stock/base stylesheet. Below is a full breakdown of what was
+   removed, changed, and restored compared to the previous version.
+
+   ------------------------------------------------
+   1. REMOVED — Custom Google Font imports
+   ------------------------------------------------
+   The two @import url(...) statements pulling in "Inter" and
+   "Lato" from Google Fonts have been removed from the top of
+   the file. Any element still referencing these font families
+   (e.g. "Lato" in mp_layout.css) will now fall back to the
+   browser/system default instead of loading the custom webfont.
+
+   ------------------------------------------------
+   2. CHANGED — body element
+   ------------------------------------------------
+   Removed:
+     background-color: #f0f0f0;
+     font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+
+   The body no longer sets a custom off-white page background or
+   a sans-serif font stack. Because the html/button/input/select/
+   textarea rule still sets font-family: serif, the whole site
+   will now render in the browser's default serif font instead
+   of the sans-serif look used before.
+
+   ------------------------------------------------
+   3. REMOVED — .horizontal-list class
+   ------------------------------------------------
+   The custom .horizontal-list rule (display: flex; gap: 15px;
+   justify-content: center; font-size: 10px;) used to lay the
+   nav menu items out side-by-side has been deleted. The nav
+   <ul> will need this rule reintroduced elsewhere (or restored
+   here) or the nav items will stack vertically using the
+   browser's default list behavior instead of the horizontal
+   flex layout.
+
+   ------------------------------------------------
+   4. CHANGED — hr styling
+   ------------------------------------------------
+   Before: border-top: 1px solid #C0C0C0;  width: 100%;
+   Now:    border-top: 1px solid #ccc;
+
+   The border color is functionally the same shade of gray,
+   just written in shorthand hex instead of the 6-digit version.
+   The explicit width: 100% declaration was also removed, so hr
+   elements now rely on their default block-level width instead
+   of an explicitly forced full-width rule.
+
+   ------------------------------------------------
+   5. RESTORED — legacy browser-targeting hacks
+   ------------------------------------------------
+   The following properties were rewritten using the old
+   asterisk ("star") CSS hack, which historically only applied
+   the rule in IE6/IE7 (modern browsers ignore any declaration
+   prefixed with *):
+
+     - audio, canvas, video   → *display: inline; *zoom: 1;
+     - legend                 → *margin-left: -7px;
+     - button, input, select,
+       textarea                → *vertical-align: middle;
+     - button, input[type=button/reset/submit]
+                               → *overflow: visible;
+     - input[type=checkbox/radio]
+                               → *width: 13px; *height: 13px;
+
+   These previously had no asterisk and applied to all browsers.
+   Now that they're hack-prefixed, they're effectively dead code
+   for every modern browser (Chrome, Firefox, Edge, Safari) and
+   only exist for legacy compatibility with IE6/7. Visually this
+   should have no effect on how the site renders today, but it
+   does mean those specific overrides are no longer active in
+   any current browser.
+
+   ------------------------------------------------
+   SUMMARY OF VISUAL IMPACT
+   ------------------------------------------------
+   - Site will now use serif font by default instead of Inter/
+     sans-serif (unless a font is still set elsewhere, e.g. in
+     mp_layout.css).
+   - Body no longer has an off-white background color.
+   - Nav links will lose their horizontal flex layout unless
+     .horizontal-list is restored or replaced with new CSS.
+   - hr elements no longer force full width.
+   - No visible change from the star-hack rules on modern
+     browsers, since those declarations are now inert.
+*/
