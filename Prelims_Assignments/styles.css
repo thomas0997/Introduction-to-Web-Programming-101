@@ -40,7 +40,7 @@ body {
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
-    width: 100%;
+    width:100%;
     padding: 0 var(--space-sm);
 }
 
@@ -64,7 +64,12 @@ header {
     align-items: center;
     gap: 12px;
 }
-
+.logo-area a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
 .logo-header {
     height: 60px;
     width: auto;
@@ -286,7 +291,11 @@ article p {
     border-left: none;
     padding-left: 0;
 }
-
+#contact-section hr {
+    width: 100%;
+    max-width: 400px;
+    margin: var(--space-md) auto;
+}
 .contact-col {
     flex: 1;
     min-width: 280px;
