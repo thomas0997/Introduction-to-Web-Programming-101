@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>Boarding Pass</title>
+</head>
+<body>
+
+<div class="ticket">
+
+  <div class="stub">
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=CX905" alt="QR code">
+    </div>
+    <div class="flight-code">Collado &middot; CX905</div>
+    <div class="stub-icon">&#9698;</div>
+  </div>
+
+  <div class="notch notch-top"></div>
+  <div class="notch notch-bottom"></div>
+
+  <div class="body">
+
+    <div class="airline">
+      <span class="plane-icon">&#9992;</span>
+      <span class="airline-name">Philippine Airlines</span>
+    </div>
+
+    <div class="field name-field">
+      <p class="label">NAME</p>
+      <p class="value">Franco, Thomas</p>
+    </div>
+
+    <div class="row route-row">
+      <div class="field">
+        <p class="label">ROUTE</p>
+        <p class="value bold">MNL <span class="arrow">&rarr;</span> SYD</p>
+      </div>
+      <div class="field">
+        <p class="label">DATE</p>
+        <p class="value">10 OCT 2026</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="grid details-grid">
+      <div class="field">
+        <p class="label">BOARDING TIME</p>
+        <p class="value">9:35 PM</p>
+      </div>
+      <div class="field">
+        <p class="label">GATE</p>
+        <p class="value">14</p>
+      </div>
+      <div class="field">
+        <p class="label">SEAT</p>
+        <p class="value">12B</p>
+      </div>
+      <div class="field">
+        <p class="label">FLIGHT</p>
+        <p class="value">PR211</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
