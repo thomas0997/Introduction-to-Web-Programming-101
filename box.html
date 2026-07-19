@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>content-box vs border-box</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; background: #f4f6fb; }
+    h1 { color: #1E2761; }
+    h2 { color: #D9622B; margin: 28px 0 6px; }
+    .note { font-size: 13px; color: #595959; margin: 0 0 10px; }
+    .box { background: #fff; border: 2px solid #1E2761; border-radius: 6px; padding: 18px; margin-bottom: 14px; }
+    pre { background: #1a1b2e; color: #c9d1d9; font-family: "Courier New", monospace; font-size: 13px; padding: 12px 16px; border-radius: 6px; border-left: 4px solid #D9622B; overflow-x: auto; margin: 10px 0; line-height: 1.6; }
+    code { background: #f3f0ff; padding: 1px 5px; border-radius: 3px; font-family: monospace; color: #5e2ca5; }
+    hr { border: none; border-top: 3px dashed #D9622B; margin: 32px 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th { background: #1E2761; color: #fff; padding: 9px 12px; text-align: left; font-size: 13px; }
+    td { padding: 9px 12px; border-bottom: 1px solid #ddd; font-size: 13px; }
+    tr:nth-child(even) td { background: #f4f6fb; }
+
+    /* ================================
+       CONTENT-BOX (default behavior)
+       width = content only
+       actual space = content + padding + border
+    ================================ */
+    .cb {
+      box-sizing: content-box;
+      width: 300px;
+      padding: 20px;
+      border: 10px solid #1E2761;
+      background: #FFE066;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* ================================
+       BORDER-BOX
+       width = content + padding + border combined
+       actual space = exactly 300px
+    ================================ */
+    .bb {
+      box-sizing: border-box;
+      width: 300px;
+      padding: 20px;
+      border: 10px solid #1E2761;
+      background: #B3E5FF;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* ruler line to show actual widths */
+    .ruler {
+      height: 6px;
+      background: linear-gradient(90deg, #D9622B, #D9622B);
+      margin: 4px 0 2px;
+      border-radius: 3px;
+    }
+    .ruler-label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #D9622B;
+      margin-bottom: 16px;
+    }
+    .cb-ruler { width: 340px; }  /* 300 + 20+20 padding + 0 border shown in background */
+    .bb-ruler { width: 300px; }
+
+    /* same-width container to show the difference clearly */
+    .compare-wrap {
+      background: #f9f9f9;
+      border: 2px dashed #ccc;
+      padding: 16px;
+      border-radius: 6px;
+      overflow: visible;
+    }
+
+    /* diagram layers */
+    .diagram {
+      position: relative;
+      display: inline-block;
+      margin: 10px 0;
+    }
+    .layer-margin    { background: #fde68a; padding: 14px; display: inline-block; }
+    .layer-border    { background: #1E2761; padding: 10px; display: inline-block; }
+    .layer-padding   { background: #bfdbfe; padding: 16px; display: inline-block; }
+    .layer-content   { background: #FFE066; padding: 12px 20px; display: inline-block; font-size: 13px; font-weight: bold; white-space: nowrap; }
+    .layer-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>content-box vs border-box</h1>
+  <p style="color:#444;margin-bottom:20px;">Both boxes below have <strong>exactly the same CSS</strong> — <code>width: 300px</code>, <code>padding: 20px</code>, <code>border: 10px solid</code>. The only difference is <code>box-sizing</code>. Watch what happens to the actual space they take up.</p>
+
+  <!-- VISUAL COMPARISON -->
+  <h2>Side-by-Side Comparison — same width: 300px on both</h2>
+  <div class="box compare-wrap">
+
+    <p style="font-size:13px;color:#555;margin-bottom:14px;">The orange ruler below each box shows the <strong>actual total space</strong> it occupies on the page.</p>
+
+    <!-- content-box -->
+    <div class="cb">
+      content-box<br>
+      <span style="font-size:12px;font-weight:normal;">width:300 + padding:20×2 + border:10×2 = <strong>360px total</strong></span>
+    </div>
+    <div class="ruler cb-ruler" style="width:360px"></div>
+    <div class="ruler-label">← 360px actual width (content-box) →</div>
+
+    <!-- border-box -->
+    <div class="bb">
+      border-box<br>
+      <span style="font-size:12px;font-weight:normal;">width:300 = content + padding + border = <strong>300px total</strong></span>
+    </div>
+    <div class="ruler bb-ruler" style="width:300px"></div>
+    <div class="ruler-label">← 300px actual width (border-box) →</div>
+
+  </div>
+
+  <!-- MATH BREAKDOWN -->
+  <h2>The Math</h2>
+  <div class="box">
+    <pre>/* Same CSS applied to both boxes */
+width: 300px;
+padding: 20px;       /* 20px on each side = 40px total */
+border: 10px solid;  /* 10px on each side = 20px total */</pre>
+
+    <table>
+      <thead>
+        <tr><th>Model</th><th>width refers to...</th><th>Total space on page</th><th>Content area</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>content-box</code> (default)</td>
+          <td>Content area only</td>
+          <td><strong>360px</strong><br><span style="font-size:12px;color:#888">300 + 40 padding + 20 border</span></td>
+          <td>300px</td>
+        </tr>
+        <tr>
+          <td><code>border-box</code></td>
+          <td>Content + padding + border combined</td>
+          <td><strong>300px</strong><br><span style="font-size:12px;color:#888">exactly what you set</span></td>
+          <td>260px<br><span style="font-size:12px;color:#888">300 - 40 padding - 20 border</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOX MODEL DIAGRAM -->
+  <h2>Box Model Layer Diagram</h2>
+  <div class="box" style="text-align:center;">
+    <p class="note" style="text-align:left;">Every element is made of four nested layers — from outside in: margin → border → padding → content.</p>
+    <div class="diagram">
+      <div class="layer-margin">
+        <div class="layer-border">
+          <div class="layer-padding">
+            <div class="layer-content">CONTENT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-top:10px;flex-wrap:wrap;">
+      <span style="font-size:12px;"><span style="display:inline-block;width:14px;height:14px;background:#fde68a;border:1px solid #ccc;vertical-align:middle;margin-right:4px;"></span>Margin</span>
+      <span style="font-size:12px;"><span style="display:inline-block;width:14px;height:14px;background:#1E2761;vertical-align:middle;margin-right:4px;"></span>Border</span>
+      <span style="font-size:12px;"><span style="display:inline-block;width:14px;height:14px;background:#bfdbfe;border:1px solid #ccc;vertical-align:middle;margin-right:4px;"></span>Padding</span>
+      <span style="font-size:12px;"><span style="display:inline-block;width:14px;height:14px;background:#FFE066;border:1px solid #ccc;vertical-align:middle;margin-right:4px;"></span>Content</span>
+    </div>
+    <table style="margin-top:16px;">
+      <thead><tr><th>Model</th><th>width covers these layers</th></tr></thead>
+      <tbody>
+        <tr><td><code>content-box</code></td><td>🟨 Content only — padding and border are <em>added on top</em></td></tr>
+        <tr><td><code>border-box</code></td><td>🟨 Content + 🔵 Padding + 🟦 Border — all included inside the width</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- CODE -->
+  <h2>How to Use</h2>
+  <div class="box">
+    <pre>/* content-box — default, you rarely write this explicitly */
+.element {
+  box-sizing: content-box;
+  width: 300px;
+  padding: 20px;
+  border: 10px solid navy;
+  /* actual total width = 360px — wider than you set */
+}
+
+/* border-box — what most devs prefer */
+.element {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 20px;
+  border: 10px solid navy;
+  /* actual total width = exactly 300px — predictable */
+}
+
+/* Common reset — apply border-box to everything */
+* {
+  box-sizing: border-box;
+}</pre>
+    <p style="font-size:13px;color:#595959;margin-top:10px;">Most modern developers apply <code>* { box-sizing: border-box; }</code> as a global reset so that <code>width: 300px</code> always means exactly 300px on the page — no mental math needed.</p>
+  </div>
+
+</body>
+</html>

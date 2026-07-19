@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HTML5 & CSS — Interactive Quiz</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue",Arial,sans-serif;background:#f0f2f7;padding:20px;min-height:100vh}
+#wrap{max-width:800px;margin:0 auto}
+.q-header{background:#1E2761;color:#fff;padding:18px 24px;border-radius:8px 8px 0 0}
+.q-header h1{font-size:19px;font-weight:700}
+.q-header p{font-size:12px;color:#aab4d4;margin-top:4px}
+.prog-wrap{background:#c5cae9;height:5px}
+.prog-bar{background:#D9622B;height:5px;transition:width .3s}
+.card{background:#fff;border:1px solid #dde3f0;border-top:none;border-radius:0 0 8px 8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.meta{display:flex;align-items:center;gap:10px;padding:13px 22px;border-bottom:1px solid #f0f0f0;flex-wrap:wrap}
+.badge{padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.b-none{background:#f0f2f7;color:#777}
+.b-ok{background:#d4edda;color:#155724}
+.b-err{background:#f8d7da;color:#721c24}
+.q-num{font-size:13px;font-weight:700;color:#555;margin-left:auto}
+.q-pts{font-size:13px;color:#888}
+.q-type{font-size:11px;text-transform:uppercase;letter-spacing:.8px;background:#EAF1FB;color:#1E2761;padding:2px 9px;border-radius:4px;font-weight:700}
+.q-body{padding:20px 22px 14px}
+.q-text{font-size:15.5px;line-height:1.65;color:#222}
+.q-text code,.opt-text code{background:#f3f0ff;padding:1px 6px;border-radius:3px;font-family:"Courier New",monospace;font-size:13.5px;color:#5e2ca5}
+pre.blk{background:#1a1b2e;color:#c9d1d9;font-family:"Courier New",monospace;font-size:13px;padding:12px 16px;border-radius:6px;margin:12px 0;border-left:4px solid #D9622B;overflow-x:auto;white-space:pre;line-height:1.6}
+.opts{padding:4px 22px 16px;list-style:none}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;margin:7px 0;border:2px solid #e3e8f0;border-radius:7px;cursor:pointer;transition:all .15s;line-height:1.5}
+.opt:hover:not(.locked){border-color:#1E2761;background:#f0f4ff}
+.opt.sel{border-color:#1E2761;background:#eef2ff}
+.opt.hit{border-color:#28a745;background:#d4edda}
+.opt.miss{border-color:#dc3545;background:#f8d7da}
+.opt.locked{cursor:default}
+.radio{width:18px;height:18px;border:2px solid #bbb;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.radio.r-sel{background:#1E2761;border-color:#1E2761;color:#fff}
+.radio.r-sel::after{content:"●";color:#fff;font-size:9px}
+.radio.r-ok{background:#28a745;border-color:#28a745;color:#fff}
+.radio.r-ok::after{content:"✓"}
+.radio.r-err{background:#dc3545;border-color:#dc3545;color:#fff}
+.radio.r-err::after{content:"✗"}
+.opt-text{flex:1;font-size:15px;color:#222}
+.fb{margin:2px 22px 14px;padding:9px 14px;border-radius:6px;font-size:13.5px;display:none}
+.fb.ok{background:#d4edda;color:#155724;border:1px solid #c3e6cb;display:block}
+.fb.err{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;display:block}
+.ctrl{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid #eef0f5;background:#fafbfd;border-radius:0 0 8px 8px;gap:8px}
+.ctr-info{font-size:13px;color:#888}
+.btns{display:flex;gap:8px}
+button{padding:9px 20px;border:none;border-radius:6px;font-size:13.5px;font-weight:700;cursor:pointer;transition:opacity .15s}
+button:hover{opacity:.85}
+button:disabled{opacity:.35;cursor:default}
+.b-sub{background:#D9622B;color:#fff}
+.b-nxt{background:#1E2761;color:#fff}
+.b-sec{background:#e2e6ea;color:#444}
+/* Results */
+#res{max-width:800px;margin:0 auto;display:none}
+.res-head{background:#1E2761;color:#fff;padding:28px 24px;border-radius:8px 8px 0 0;text-align:center}
+.res-score{font-size:52px;font-weight:700;color:#D9622B}
+.res-pct{font-size:15px;margin-top:6px;color:#aab4d4}
+.res-body{background:#fff;border:1px solid #dde;border-top:none;border-radius:0 0 8px 8px;padding:20px}
+.ri{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13.5px;align-items:flex-start}
+.ri-n{width:26px;font-weight:700;color:#555;flex-shrink:0;padding-top:2px}
+.ri-t{flex:1;line-height:1.5}
+.ri-p{font-weight:700;flex-shrink:0;padding-top:2px}
+.r-ok .ri-p{color:#155724}
+.r-err .ri-p{color:#721c24}
+.tag{padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.t-ok{background:#d4edda;color:#155724}
+.t-err{background:#f8d7da;color:#721c24}
+.res-footer{text-align:center;padding:18px 0 4px}
+</style>
+</head>
+<body>
+
+<div id="wrap">
+  <div class="q-header">
+    <h1>HTML5 &amp; CSS — Module Quiz</h1>
+    <p>40 Questions &nbsp;|&nbsp; 40 pts total &nbsp;|&nbsp; Conceptual · Situational · Application · Theoretical</p>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="pb" style="width:2.5%"></div></div>
+  <div class="card">
+    <div class="meta">
+      <span class="badge b-none" id="badge">Not Answered</span>
+      <span class="q-type" id="qtype">Conceptual</span>
+      <span class="q-num" id="qnum">Question 1</span>
+      <span class="q-pts" id="qpts">— / 1 pts</span>
+    </div>
+    <div class="q-body"><div class="q-text" id="qtext"></div></div>
+    <ul class="opts" id="opts"></ul>
+    <div class="fb" id="fb"></div>
+    <div class="ctrl">
+      <button class="b-sec" id="bprev" onclick="go(-1)">← Previous</button>
+      <span class="ctr-info" id="cinfo">1 / 40</span>
+      <div class="btns">
+        <button class="b-sub" id="bsub" onclick="sub()">Submit Answer</button>
+        <button class="b-nxt" id="bnxt" onclick="go(1)" style="display:none">Next →</button>
+        <button class="b-nxt" id="bfin" onclick="finish()" style="display:none">See Results</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="res">
+  <div class="res-head">
+    <div style="font-size:16px;font-weight:700;margin-bottom:8px">Quiz Complete!</div>
+    <div class="res-score" id="rscore">0 / 40</div>
+    <div class="res-pct" id="rpct">0%</div>
+  </div>
+  <div class="res-body" id="rbody"></div>
+  <div class="res-footer"><button class="b-nxt" onclick="restart()">↺ Retake Quiz</button></div>
+</div>
+
+<script>
+const Q=[
+{t:"Conceptual",q:"The Internet and the World Wide Web are often used interchangeably. Which statement correctly distinguishes the two?",o:["The Internet is a service; the World Wide Web is the physical network of computers","The Internet is the physical network of computers worldwide; the Web is a service that runs on top of it, providing access to information stored on web servers","They refer to the same infrastructure — 'Internet' is just the older term for the Web","The Web is a physical infrastructure; the Internet is a browsable collection of webpages"],a:1},
+{t:"Conceptual",q:"What does the acronym POUR stand for in the WCAG accessibility guidelines?",o:["Perceivable, Operable, Usable, Readable","Perceivable, Observable, Understandable, Reliable","Perceivable, Operable, Understandable, Robust","Processable, Operable, Understandable, Robust"],a:2},
+{t:"Theoretical",q:"What was the primary structural advancement HTML5 introduced over HTML4 in terms of page layout?",o:["HTML5 removed the need for CSS stylesheets entirely","HTML5 replaced generic <code>&lt;div id='...'&gt;</code> tags with semantic elements whose tag names describe the type of content they hold","HTML5 made all pages automatically mobile-responsive without extra CSS","HTML5 introduced faster loading by reducing the number of required tags"],a:1},
+{t:"Application",q:"Which of the following correctly links an HTML document to an external CSS stylesheet?",o:["<code>&lt;style href=\"style.css\" /&gt;</code>","<code>&lt;link rel=\"stylesheet\" src=\"style.css\" /&gt;</code>","<code>&lt;link href=\"style.css\" rel=\"stylesheet\" /&gt;</code>","<code>&lt;css src=\"style.css\" /&gt;</code>"],a:2},
+{t:"Situational",q:"You need to display a block of code on a tutorial webpage exactly as typed in your text editor, preserving all line breaks, indentation, and consecutive spaces. Which HTML element should wrap this content?",o:["<code>&lt;code&gt;</code>","<code>&lt;div&gt;</code>","<code>&lt;pre&gt;</code>","<code>&lt;p&gt;</code>"],a:2},
+{t:"Conceptual",q:"In CSS, how does specificity determine which style rule wins when two conflicting rules target the same element?",o:["The rule that appears first in the stylesheet always wins regardless of selector type","The rule with the fewest declarations wins","The more specific selector wins — the priority order is: ID &gt; class &gt; element &gt; wildcard (*)","The rule with the most declarations always wins"],a:2},
+{t:"Application",q:"Given the CSS rule below, which elements will have red text?<pre class='blk'>div p { color: red; }</pre>",o:["Only &lt;p&gt; elements that are direct children of &lt;div&gt;","All &lt;p&gt; elements anywhere inside a &lt;div&gt;, no matter how deeply nested","All &lt;div&gt; elements on the page","Only the very first &lt;p&gt; inside each &lt;div&gt;"],a:1},
+{t:"Application",q:"Given the CSS rule below, which &lt;p&gt; elements will be styled blue?<pre class='blk'>div &gt; p { color: blue; }</pre>",o:["All &lt;p&gt; elements anywhere inside a &lt;div&gt;, regardless of nesting depth","Only &lt;p&gt; elements that are direct children of &lt;div&gt;","All &lt;p&gt; elements on the entire page","Only the last &lt;p&gt; directly inside each &lt;div&gt;"],a:1},
+{t:"Conceptual",q:"What does <code>display: none</code> do to an element, and how does it differ from making the element invisible?",o:["It hides the element visually but keeps its reserved space in the layout","It completely removes the element from the rendered page — it takes up no space and leaves no gap","It makes the element transparent at 0% opacity while keeping its layout space","It moves the element behind all other elements on the z-axis"],a:1},
+{t:"Situational",q:"Elena is building a bakery website and needs a navigation bar with links to 'Home,' 'Menu,' and 'Contact.' According to semantic HTML5 guidelines, what is the correct structure for a navigation list?",o:["<code>&lt;navbar&gt;&lt;a href=\"#\"&gt;Home&lt;/a&gt;...&lt;/navbar&gt;</code>","<code>&lt;nav&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=\"#\"&gt;Home&lt;/a&gt;&lt;/li&gt;...&lt;/ul&gt;&lt;/nav&gt;</code>","<code>&lt;menu&gt;&lt;li&gt;Home&lt;/li&gt;...&lt;/menu&gt;</code>","<code>&lt;div id=\"nav\"&gt;&lt;a href=\"#\"&gt;Home&lt;/a&gt;&lt;/div&gt;</code>"],a:1},
+{t:"Theoretical",q:"In the CSS box model, what is the difference between <code>box-sizing: content-box</code> and <code>box-sizing: border-box</code>?",o:["content-box includes padding in the width value; border-box does not","content-box: the width property refers to content area only — padding and border are added on top; border-box: the width includes content, padding, and border combined","They are identical in behavior — just different names for the same model","border-box is only used for elements that have a visible border applied"],a:1},
+{t:"Application",q:"Which CSS property and value converts all text to uppercase letters in the browser without altering the HTML source?",o:["<code>font-style: uppercase;</code>","<code>font-weight: uppercase;</code>","<code>text-transform: uppercase;</code>","<code>text-case: upper;</code>"],a:2},
+{t:"Conceptual",q:"What is the purpose of the CSS <code>clear</code> property?",o:["To remove all inherited styles from an element and start from scratch","To ensure an element is displayed below any preceding floated elements — preventing it from sitting alongside them","To remove the border and background color from an element","To reset the font back to the browser's built-in default value"],a:1},
+{t:"Theoretical",q:"Which statement accurately describes the difference between <code>position: relative</code> and <code>position: absolute</code>?",o:["Both remove the element from document flow; surrounding elements ignore both completely","Relative shifts the element visually but reserves the original space so surrounding elements don't shift; absolute places the element at specific coordinates and surrounding elements move in to fill the vacated space","They are interchangeable and produce identical layout results","Relative uses pixel values only; absolute uses percentage values only"],a:1},
+{t:"Situational",q:"A developer applies three conflicting color rules to the same &lt;p&gt; element: an external CSS file sets blue, an embedded &lt;style&gt; block sets black, and an inline style sets red. What color will the paragraph text be?",o:["Blue — external stylesheets always have the highest priority","Black — embedded &lt;style&gt; blocks override external CSS files","Red — inline styles have the highest specificity and override both embedded and external styles","The browser's default color — all three conflict and cancel each other out"],a:2},
+{t:"Theoretical",q:"What is the correct distinction between XML and XHTML?",o:["Both XML and XHTML are used to display and style web pages","XML is used to exchange and transport data; XHTML is a stricter, XML-based version of HTML used to display web pages","XHTML exchanges data; XML displays web pages in browsers","They are completely different names for the exact same markup language"],a:1},
+{t:"Application",q:"Which HTML snippet correctly creates a hypertext link that opens the user's default email client when clicked?",o:["<code>&lt;a href=\"email:user@example.com\"&gt;Contact&lt;/a&gt;</code>","<code>&lt;a href=\"contact:user@example.com\"&gt;Contact&lt;/a&gt;</code>","<code>&lt;a href=\"mailto:user@example.com\"&gt;Contact&lt;/a&gt;</code>","<code>&lt;a email=\"user@example.com\"&gt;Contact&lt;/a&gt;</code>"],a:2},
+{t:"Situational",q:"A developer floats all three content columns inside a container &lt;div&gt;. The container collapses to zero height because floated elements are removed from normal document flow. What is the correct CSS fix?",o:["Add <code>overflow: hidden</code> directly to each of the floated columns","Add <code>float: both</code> to the container element","Apply a <code>::after</code> pseudo-element to the container with <code>clear: both; content: ''; display: table;</code>","Explicitly set <code>height: auto</code> on the container element"],a:2},
+{t:"Conceptual",q:"What is the primary purpose of the <code>alt</code> attribute on an <code>&lt;img&gt;</code> tag?",o:["It shows a tooltip popup when the user hovers over the image","It specifies the display dimensions of the image for the browser layout engine","It provides alternate text for screen readers and for when the image fails to load — essential for accessibility","It links the image to another web page when the user clicks it"],a:2},
+{t:"Application",q:"Which character entity reference correctly inserts a non-breaking space in HTML — a space that prevents line-wrapping and is not collapsed by the browser?",o:["<code>&amp;#space;</code>","<code>&amp;space;</code>","<code>&amp;#32;</code>","<code>&amp;nbsp;</code>"],a:3},
+{t:"Theoretical",q:"What is a CSS reset stylesheet and what specific problem does it solve?",o:["A file that restores all browser default styles after they have been overridden","A file that strips and overrides the browser's built-in default styles, providing a consistent predictable baseline for design across all browsers","A file that removes all CSS from a page so it renders with zero styling","A file that specifically resets only font sizes to 100%"],a:1},
+{t:"Situational",q:"Daniel is building an FAQ section. He wants each question paired with its answer below it — no bullet points or numbers, just a clean term-and-definition layout. Which HTML structure is most semantically appropriate?",o:["Nested &lt;ul&gt; lists with &lt;li&gt; elements for each Q&amp;A pair","&lt;ol&gt; with paired &lt;li&gt; tags for questions and answers","&lt;dl&gt; with &lt;dt&gt; for each question and &lt;dd&gt; for each answer","Plain &lt;p&gt; tags with CSS bold styling applied to the question text"],a:2},
+{t:"Application",q:"Which CSS selector correctly targets ONLY a &lt;p&gt; element that immediately follows an &lt;h3&gt; at the same nesting level — not nested inside it, just directly adjacent?",o:["<code>h3 p { }</code>","<code>h3 &gt; p { }</code>","<code>h3 + p { }</code>","<code>h3 ~ p { }</code>"],a:2},
+{t:"Conceptual",q:"Which statement best describes the difference between <code>float</code> and <code>position: absolute</code> in terms of how surrounding elements are affected?",o:["Both remove the element from document flow; surrounding elements completely ignore both","Float removes the element from flow but surrounding content still wraps around it; position: absolute removes it entirely and surrounding elements shift to fill the vacated space","position: absolute keeps the original space reserved; float does not","They behave identically — both are simply different ways to position elements"],a:1},
+{t:"Situational",q:"A travel blogger wants to feature a review quote from another publication on her page, styled differently from her own writing and clearly attributed to the source. Which HTML structure is most semantically correct?",o:["&lt;em&gt; for the quote text and &lt;strong&gt; for the attribution","&lt;blockquote&gt; for the quote and &lt;cite&gt; inside it for the attribution and source name","&lt;p&gt; with inline CSS for the quote and &lt;span&gt; for the credit text","&lt;q&gt; for the quote and &lt;h3&gt; for the source name"],a:1},
+{t:"Application",q:"Which CSS rule correctly applies a uniform 30px rounded corner radius to all four corners of an element's border?",o:["<code>border-corner: 30px;</code>","<code>border-style: round 30px;</code>","<code>border-radius: 30px;</code>","<code>corner-radius: 30px;</code>"],a:2},
+{t:"Theoretical",q:"According to CSS specificity rules, if the following three selectors all target the same element with conflicting color values, which one wins?<pre class='blk'>#main { color: red; }\n.highlight { color: blue; }\np { color: green; }</pre>",o:["<code>p { color: green; }</code> — element selectors take highest priority","<code>.highlight { color: blue; }</code> — class selectors override element selectors","<code>#main { color: red; }</code> — ID selectors have the highest specificity","The last rule defined in the file always wins regardless of selector type"],a:2},
+{t:"Application",q:"Which CSS property controls the vertical space between lines of text — also known as 'leading' in traditional typography?",o:["<code>letter-spacing</code>","<code>word-spacing</code>","<code>line-height</code>","<code>text-indent</code>"],a:2},
+{t:"Situational",q:"Nina has a photography gallery where each thumbnail links to its full-size image. She wants the full-size image to open in a new browser tab when the thumbnail is clicked. Which code correctly achieves this?",o:["<code>&lt;img src=\"thumb.jpg\" expand=\"full.jpg\" /&gt;</code>","<code>&lt;a href=\"full.jpg\" target=\"_blank\"&gt;&lt;img src=\"thumb.jpg\" /&gt;&lt;/a&gt;</code>","<code>&lt;img src=\"thumb.jpg\" onclick=\"full.jpg\" /&gt;</code>","<code>&lt;picture&gt;&lt;source src=\"full.jpg\" /&gt;&lt;/picture&gt;</code>"],a:1},
+{t:"Conceptual",q:"What is the purpose of the CSS <code>z-index</code> property, and what key requirement must be met for it to work?",o:["z-index controls the opacity of an element; it works on every element regardless of positioning","z-index controls the stacking order of overlapping elements; it only works on elements with a position value of absolute, relative, or fixed — not static","z-index controls the depth of a drop shadow; it works on all block elements","z-index determines the layer order of a background image; it works on all elements"],a:1},
+{t:"Application",q:"What does the following CSS rule accomplish?<pre class='blk'>* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}</pre>",o:["It removes all visible borders from every element on the page","It applies a CSS reset to every element — removing all default browser margins and padding, and switching all elements to border-box sizing","It selects only block-level elements and sets their display to none","It prevents all elements from inheriting any properties from their parents"],a:1},
+{t:"Theoretical",q:"What is the key difference between the <code>em</code> and <code>rem</code> CSS font size units?",o:["em is relative to the root &lt;html&gt; font size; rem is relative to the parent element's font size","em is relative to the parent element's font size and can compound across nested levels; rem is always relative to the root &lt;html&gt; element's font size, avoiding compounding","em uses pixels internally; rem uses percentages internally","They are the same unit — the 'r' in rem simply stands for 'relative'"],a:1},
+{t:"Situational",q:"Jake is building a zoo website with a large map image. He wants visitors to click on different regions of the image to navigate to different animal pages. Which HTML approach is specifically designed for this use case?",o:["Multiple &lt;img&gt; tags placed side by side to simulate separate clickable regions","&lt;img usemap='#mapname'&gt; combined with a &lt;map&gt; element containing &lt;area&gt; tags that define each clickable hotspot and its destination URL","A single &lt;img&gt; tag with an onclick attribute that calls a JavaScript function","Embedding the image with &lt;embed&gt; and using CSS :hover states to simulate click regions"],a:1},
+{t:"Application",q:"Which CSS declaration correctly creates a linear gradient going from light green to dark green at a 345-degree angle?",o:["<code>background: gradient(345deg, lightgreen, darkgreen);</code>","<code>background: linear-gradient(345deg, rgb(172, 232, 172), rgb(21, 35, 21));</code>","<code>background: gradient(lightgreen, darkgreen, 345deg);</code>","<code>background-gradient: 345deg lightgreen darkgreen;</code>"],a:1},
+{t:"Conceptual",q:"What is the semantic difference between the &lt;strong&gt; and &lt;em&gt; HTML elements?",o:["&lt;strong&gt; makes text italic; &lt;em&gt; makes text bold — they are purely visual formatting tags","&lt;strong&gt; indicates content of strong importance (renders bold by default); &lt;em&gt; indicates stressed or emphasized content (renders italic by default) — both carry semantic meaning beyond just styling","They are purely decorative visual tags with no semantic meaning whatsoever","&lt;strong&gt; is used exclusively for headings; &lt;em&gt; is used exclusively for paragraph text"],a:1},
+{t:"Theoretical",q:"What is the difference between <code>overflow: hidden</code> and <code>overflow: auto</code>?",o:["overflow: hidden adds scrollbars; overflow: auto hides the overflowing content","overflow: hidden clips any content that overflows the element with no scrollbars; overflow: auto adds scrollbars only when content actually exceeds the element's dimensions","They produce identical behavior — both just hide overflowing content","overflow: hidden is the browser default; overflow: auto is only for fixed-height elements"],a:1},
+{t:"Application",q:"A developer writes:<pre class='blk'>article { color: blue; }</pre>A &lt;p&gt; element is nested inside the &lt;article&gt; with no color rule of its own. What color will the &lt;p&gt; text be, and why?",o:["The browser default black — the color property does not apply to nested elements","Blue — because color is an inherited CSS property; child elements automatically inherit it from their parent","Only the &lt;article&gt; element itself turns blue; the nested &lt;p&gt; is completely unaffected","It depends entirely on the order of other rules elsewhere in the stylesheet"],a:1},
+{t:"Situational",q:"A web designer wants a two-column layout where the left column takes 33% of the page width and the right takes 67%, sitting side by side in the same horizontal row. Which CSS technique is being used?",o:["CSS Grid with two equally-sized 1fr track columns","Positioning both columns with <code>position: absolute</code> and explicit coordinate values","Floating both columns left with complementary widths that add up to 100% of the parent container's width","Using <code>display: inline-block</code> with fixed pixel widths on both columns"],a:2},
+{t:"Application",q:"Which HTML code correctly inserts a bullet character (•) using a numeric character encoding reference?",o:["<code>&amp;bullet;</code>","<code>&amp;#8226;</code>","<code>&amp;dot;</code>","<code>&amp;#bullet;</code>"],a:1},
+{t:"Theoretical",q:"What is the purpose of CSS vendor prefixes such as <code>-webkit-</code> or <code>-moz-</code>, and when are they used?",o:["They speed up CSS file loading by signaling to the browser which engine to use","They mark experimental or browser-specific implementations of CSS properties that a vendor supports before the property is officially standardized across all browsers","They are required on all CSS3 properties for them to work in modern browsers","They override all other CSS rules for that property, giving them the absolute highest priority"],a:1}
+];
+
+let cur=0,sel=Array(40).fill(-1),done=Array(40).fill(false);
+
+function render(){
+  const q=Q[cur],n=Q.length,isD=done[cur],ua=sel[cur],ok=ua===q.a;
+  document.getElementById('pb').style.width=((cur+1)/n*100)+'%';
+  document.getElementById('qnum').textContent='Question '+(cur+1);
+  document.getElementById('qtype').textContent=q.t;
+  document.getElementById('cinfo').textContent=(cur+1)+' / '+n;
+  const badge=document.getElementById('badge'),pts=document.getElementById('qpts');
+  if(!isD){badge.className='badge b-none';badge.textContent='Not Answered';pts.textContent='— / 1 pts';}
+  else if(ok){badge.className='badge b-ok';badge.textContent='Correct Answer';pts.textContent='1 / 1 pts';}
+  else{badge.className='badge b-err';badge.textContent='Wrong Answer';pts.textContent='0 / 1 pts';}
+  document.getElementById('qtext').innerHTML=q.q;
+  const ol=document.getElementById('opts');
+  ol.innerHTML='';
+  q.o.forEach((o,i)=>{
+    const li=document.createElement('li');
+    li.className='opt'+(isD?' locked':'');
+    const rd=document.createElement('div');rd.className='radio';
+    const tx=document.createElement('div');tx.className='opt-text';tx.innerHTML=o;
+    if(isD){
+      if(i===q.a){li.classList.add('hit');rd.classList.add('r-ok');}
+      else if(i===ua&&!ok){li.classList.add('miss');rd.classList.add('r-err');}
+    } else {
+      if(i===ua){li.classList.add('sel');rd.classList.add('r-sel');}
+      li.onclick=()=>pick(i);
+    }
+    li.appendChild(rd);li.appendChild(tx);ol.appendChild(li);
+  });
+  const fb=document.getElementById('fb');
+  if(isD){fb.className=ok?'fb ok':'fb err';fb.textContent=ok?'✓ Correct!':'✗ Incorrect. The highlighted option above is the correct answer.';}
+  else{fb.className='fb';}
+  document.getElementById('bprev').disabled=cur===0;
+  const bs=document.getElementById('bsub'),bn=document.getElementById('bnxt'),bf=document.getElementById('bfin');
+  if(isD){bs.style.display='none';if(cur<n-1){bn.style.display='';bf.style.display='none';}else{bn.style.display='none';bf.style.display='';}}
+  else{bs.style.display='';bn.style.display='none';bf.style.display='none';}
+}
+function pick(i){if(done[cur])return;sel[cur]=i;render();}
+function sub(){if(sel[cur]===-1){alert('Please select an answer first.');return;}done[cur]=true;render();}
+function go(d){cur=Math.max(0,Math.min(Q.length-1,cur+d));render();}
+function finish(){
+  document.getElementById('wrap').style.display='none';
+  const rs=document.getElementById('res');rs.style.display='block';
+  let sc=0;done.forEach((d,i)=>{if(d&&sel[i]===Q[i].a)sc++;});
+  document.getElementById('rscore').textContent=sc+' / '+Q.length;
+  document.getElementById('rpct').textContent=Math.round(sc/Q.length*100)+'% Score';
+  const rb=document.getElementById('rbody');rb.innerHTML='';
+  Q.forEach((q,i)=>{
+    const ok=done[i]&&sel[i]===q.a;
+    const d=document.createElement('div');
+    d.className='ri '+(ok?'r-ok':'r-err');
+    const snip=q.q.replace(/<[^>]+>/g,'').substring(0,72)+'...';
+    d.innerHTML=`<div class="ri-n">${i+1}.</div><div class="ri-t"><span class="tag ${ok?'t-ok':'t-err'}">${ok?'✓ Correct':'✗ Wrong'}</span> <span style="font-size:11px;color:#999">${q.t}</span><br><span style="color:#555">${snip}</span></div><div class="ri-p">${ok?1:0} / 1</div>`;
+    rb.appendChild(d);
+  });
+}
+function restart(){cur=0;sel=Array(40).fill(-1);done=Array(40).fill(false);document.getElementById('wrap').style.display='';document.getElementById('res').style.display='none';render();}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Image Map Demo — map, area, usemap</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 780px; margin: 0 auto; padding: 20px; background: #f4f6fb; }
+    h1 { color: #1E2761; }
+    h2 { color: #D9622B; margin: 24px 0 8px; }
+    .tag-label { display: inline-block; background: #D9622B; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 4px; font-family: monospace; margin-bottom: 10px; }
+    .box { background: #fff; border: 2px solid #1E2761; border-radius: 6px; padding: 18px; margin-bottom: 20px; }
+    pre { background: #1a1b2e; color: #c9d1d9; font-family: "Courier New", monospace; font-size: 13px; padding: 14px 18px; border-radius: 6px; border-left: 4px solid #D9622B; overflow-x: auto; margin: 14px 0; line-height: 1.6; }
+    .note { font-size: 13px; color: #595959; margin-top: -8px; margin-bottom: 16px; }
+
+    /* Map wrapper — position relative so we can overlay labels */
+    .map-wrap { position: relative; display: inline-block; }
+    .map-wrap img { display: block; border: 2px solid #1E2761; border-radius: 6px; cursor: crosshair; }
+
+    /* Feedback box */
+    #feedback {
+      margin-top: 14px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      background: #EAF1FB;
+      border: 2px solid #1E2761;
+      font-size: 15px;
+      color: #1E2761;
+      font-weight: bold;
+      min-height: 46px;
+      transition: background 0.2s;
+    }
+    #feedback span { font-weight: normal; color: #444; margin-left: 6px; }
+
+    /* Hotspot highlight overlay (purely for teaching — not part of real image maps) */
+    .overlay {
+      position: absolute;
+      border: 2px dashed rgba(217,98,43,0.7);
+      border-radius: 4px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: rgba(217,98,43,0.9);
+      text-shadow: 0 0 4px #fff;
+      background: rgba(217,98,43,0.08);
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th { background: #1E2761; color: #fff; padding: 9px 12px; text-align: left; font-size: 13px; }
+    td { padding: 9px 12px; border-bottom: 1px solid #ddd; font-size: 13px; }
+    tr:nth-child(even) td { background: #f4f6fb; }
+    code { background: #f3f0ff; padding: 1px 5px; border-radius: 3px; font-family: monospace; color: #5e2ca5; }
+  </style>
+</head>
+<body>
+
+  <h1>Image Maps — <code>&lt;map&gt;</code>, <code>&lt;area&gt;</code>, <code>usemap</code></h1>
+  <p style="margin-bottom:20px; color:#444;">An image map lets you define <strong>clickable hotspot regions</strong> on a single image, each linking to a different URL. The orange dashed boxes below are overlays added purely to visualize the invisible hotspot areas — they are NOT part of a real image map.</p>
+
+  <!-- LIVE DEMO -->
+  <h2>Live Demo — Zoo Map</h2>
+  <div class="box">
+    <span class="tag-label">CLICK ANY ANIMAL ZONE</span>
+
+    <div class="map-wrap">
+      <!-- The img tag references the map by name using usemap="#zoo_map" -->
+      <img
+        src="https://placehold.co/600x360/2d5a27/ffffff?text=ZOO+MAP"
+        alt="Zoo map"
+        usemap="#zoo_map"
+        width="600"
+        height="360"
+      />
+
+      <!-- Teaching overlays — NOT part of the real image map -->
+      <div class="overlay" style="left:30px;top:30px;width:160px;height:120px;">🦁 LIONS</div>
+      <div class="overlay" style="left:220px;top:30px;width:160px;height:120px;">🐘 ELEPHANTS</div>
+      <div class="overlay" style="left:410px;top:30px;width:160px;height:120px;">🦒 GIRAFFES</div>
+      <div class="overlay" style="left:30px;top:190px;width:160px;height:130px;">🐧 PENGUINS</div>
+      <div class="overlay" style="left:220px;top:190px;width:160px;height:130px;">🐍 REPTILES</div>
+      <div class="overlay" style="left:410px;top:190px;width:160px;height:130px;">🦜 BIRDS</div>
+    </div>
+
+    <!-- The map element — not rendered visually, just defines the hotspot regions -->
+    <map name="zoo_map">
+      <area shape="rect" coords="30,30,190,150"  href="#" alt="Lions"     onclick="clicked('🦁 Lions','You entered the lion enclosure! Roar.',event)" />
+      <area shape="rect" coords="220,30,380,150" href="#" alt="Elephants" onclick="clicked('🐘 Elephants','The elephants are spraying water. Watch out!',event)" />
+      <area shape="rect" coords="410,30,570,150" href="#" alt="Giraffes"  onclick="clicked('🦒 Giraffes','Giraffes are munching leaves from the treetops.',event)" />
+      <area shape="rect" coords="30,190,190,320" href="#" alt="Penguins"  onclick="clicked('🐧 Penguins','The penguins are waddling around on ice.',event)" />
+      <area shape="rect" coords="220,190,380,320" href="#" alt="Reptiles" onclick="clicked('🐍 Reptiles','A python just blinked at you.',event)" />
+      <area shape="rect" coords="410,190,570,320" href="#" alt="Birds"    onclick="clicked('🦜 Birds','A parrot just said hello.',event)" />
+    </map>
+
+    <div id="feedback">👆 Click any zone on the map above.</div>
+  </div>
+
+  <!-- CODE BREAKDOWN -->
+  <h2>How It Works — Code Breakdown</h2>
+
+  <div class="box">
+    <span class="tag-label">STEP 1 — &lt;img&gt; with usemap</span>
+    <p class="note">The <code>usemap</code> attribute connects the image to a <code>&lt;map&gt;</code> element by name. The # is required.</p>
+    <pre>&lt;img
+  src="zoo_map.jpg"
+  alt="Zoo map"
+  usemap="#zoo_map"
+  width="600"
+  height="360"
+/&gt;</pre>
+  </div>
+
+  <div class="box">
+    <span class="tag-label">STEP 2 — &lt;map&gt; element</span>
+    <p class="note">The <code>&lt;map&gt;</code> element is invisible — it's just a container for hotspot definitions. Its <code>name</code> attribute must match the <code>usemap</code> value (without the #).</p>
+    <pre>&lt;map name="zoo_map"&gt;
+  ...area elements go here...
+&lt;/map&gt;</pre>
+  </div>
+
+  <div class="box">
+    <span class="tag-label">STEP 3 — &lt;area&gt; elements</span>
+    <p class="note">Each <code>&lt;area&gt;</code> defines one clickable hotspot region. It is a self-closing (empty) tag.</p>
+    <pre>&lt;area
+  shape="rect"
+  coords="30,30,190,150"
+  href="lions.html"
+  alt="Lions"
+/&gt;
+
+&lt;area
+  shape="circle"
+  coords="300,200,80"
+  href="fountain.html"
+  alt="Fountain"
+/&gt;</pre>
+  </div>
+
+  <!-- ATTRIBUTE TABLE -->
+  <h2>area Attributes Reference</h2>
+  <div class="box">
+    <table>
+      <thead>
+        <tr><th>Attribute</th><th>What it does</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>shape</code></td><td>Defines the shape of the hotspot: <code>rect</code>, <code>circle</code>, or <code>poly</code></td></tr>
+        <tr><td><code>coords</code></td><td>The coordinates that define the boundaries of the shape (see below)</td></tr>
+        <tr><td><code>href</code></td><td>The URL the hotspot links to when clicked</td></tr>
+        <tr><td><code>alt</code></td><td>Alternate text for screen readers (required for accessibility)</td></tr>
+        <tr><td><code>target</code></td><td>Where to open the link — e.g., <code>_blank</code> for new tab</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COORDS BREAKDOWN -->
+  <h2>Coordinates by Shape</h2>
+  <div class="box">
+    <table>
+      <thead>
+        <tr><th>Shape</th><th>coords format</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>rect</code></td>
+          <td>x1, y1, x2, y2 — top-left corner to bottom-right corner</td>
+          <td><code>coords="30,30,190,150"</code></td>
+        </tr>
+        <tr>
+          <td><code>circle</code></td>
+          <td>x, y, radius — center point + radius in pixels</td>
+          <td><code>coords="300,200,80"</code></td>
+        </tr>
+        <tr>
+          <td><code>poly</code></td>
+          <td>x1,y1, x2,y2, x3,y3, ... — a list of x,y pairs forming any polygon</td>
+          <td><code>coords="10,20,50,5,90,20,70,60,30,60"</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px;font-size:13px;color:#595959;">All coordinates are measured in pixels from the <strong>top-left corner of the image</strong> (0,0).</p>
+  </div>
+
+  <script>
+    function clicked(name, msg, e) {
+      e.preventDefault();
+      const fb = document.getElementById('feedback');
+      fb.style.background = '#FCEEE3';
+      fb.innerHTML = name + ' <span>' + msg + '</span>';
+      setTimeout(() => { fb.style.background = '#EAF1FB'; }, 600);
+    }
+  </script>
+
+</body>
+</html>
