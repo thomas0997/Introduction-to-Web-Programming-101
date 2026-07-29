@@ -8,20 +8,20 @@ html{
 font-size:100%;
 }
 body{
-font-family:Arial, Helvetica, sans-serif;
+font-family:"Geist", Arial, Helvetica, sans-serif;
 background:#eaf7ff;
 line-height:1.5;
 }
 
 /* Header */
 header{
-background:#003366;
-color:white;
+background:linear-gradient(#1b7d96, #8ECAE6);
+color:#023047;
 padding:clamp(15px,4vw,30px);
 text-align:center;
 }
 header h1{
-font-size:clamp(1.4rem,4vw,2.2rem);
+font-size:clamp(1.15rem,4vw,2.2rem);
 }
 header p{
 font-size:clamp(0.8rem,2vw,1rem);
@@ -29,29 +29,59 @@ font-size:clamp(0.8rem,2vw,1rem);
 
 /* Navigation */
 nav{
-background:#006699;
+background:#8ECAE6;
 position:relative;
 }
+
+
 .menu{
 display:flex;
 justify-content:center;
 list-style:none;
 flex-wrap:wrap;
 }
-.menu li{
-position:relative;
-}
+
 .menu li a{
 display:block;
 padding:15px clamp(12px,2.5vw,25px);
-color:white;
+color: black;
 text-decoration:none;
 font-size:clamp(0.85rem,1.5vw,1rem);
+font-weight: bold;
+border-radius: 0;
+position: relative;  /* ← 1. required so ::after can position itself against this link */
+transition: color 0.25s ease;
 }
-.menu li:hover{
-background:#004466;
+.menu li a::after{
+content:""; /* ← 2. required — pseudo-elements do nothing without this */
+position:absolute;
+left:50%;
+bottom:8px;
+width:0; /* ← 3. starts invisible (zero width) */
+height:3px; /* ← this is the line's thickness */
+background:#219EBC; /* ← this is the line's color */
+transition: width 0.25s ease, left 0.25s ease; /* ← 4. makes it animate instead of snap */
+}
+.menu > li:hover > a{
+color:#023047; 
+}
+.menu > li:hover > a::after{
+width:60%;/* ← 5. THIS is what actually makes the line appear/grow on hover */
+left:20%;  /* ← re-centers it as it grows outward from center */
 }
 
+.menu li a:focus-visible{
+color:#023047;
+outline: 2px solid #219EBC;
+outline-offset: -2px;
+}
+.menu li a:focus-visible::after{
+width:60%;
+left:20%;
+}
+.menu li:hover .submenu{
+display:block;
+}
 /* Burger */
 .burger{
 display:none;
@@ -79,24 +109,44 @@ background:#0088cc;
 list-style:none;
 width:200px;
 z-index:5;
+border-radius:8px;
+overflow:hidden;
+box-shadow:0 6px 14px rgba(0,0,0,0.25);
 }
 .submenu li{
-border-bottom:1px solid white;
+color: #8ECAE6;
+border-bottom:1px solid #023047;
 }
-.menu li:hover .submenu{
+.submenu li:last-child{
+border-bottom:none;
+}
+.submenu li a{
+border-radius:0;
+font-weight: normal;
+padding:12px 16px;
 display:block;
+transition: background-color 0.2s ease, color 0.2s ease;
 }
+.submenu li a:hover{
+color: white;
+background:#1b7d96;
+}
+
+
 
 /* Hero */
 .hero{
 padding:clamp(30px,8vw,70px) 20px;
 text-align:center;
-background:linear-gradient(rgba(0,170,255,0.6), rgba(0,170,255,0.6)),
+background:linear-gradient(rgba(0,170,255,0.2), rgba(0,170,255,0.9)),
 url("https://images.pexels.com/photos/18145430/pexels-photo-18145430.jpeg") no-repeat center/cover;
 color:white;
+
 }
 .hero h2{
-font-size:clamp(1.3rem,4.5vw,2rem);
+font-size:clamp(1.1rem,4.5vw,2rem);
+text-shadow: 1px 4px 3px rgba(0,0,0,0.5);
+
 }
 .hero p{
 font-size:clamp(0.85rem,2vw,1.1rem);
@@ -107,15 +157,17 @@ padding:clamp(10px,2vw,12px) clamp(20px,4vw,30px);
 margin-top:20px;
 font-size:clamp(0.9rem,2vw,1.1rem);
 border:none;
-background:orange;
-border-radius:4px;
+background:#FB8500;
+border-radius:9px;
 color:white;
 font-weight:bold;
 cursor:pointer;
 transition:0.2s ease;
+box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+
 }
 .hero button:hover{
-background:#e69500;
+background:#FFB703;
 transform:scale(1.05);
 }
 
@@ -124,23 +176,28 @@ transform:scale(1.05);
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:clamp(12px,2.5vw,20px);
-padding:clamp(15px,4vw,30px);
+gap:clamp(15px,1.5vw,20px);
+padding:clamp(20px,4vw,30px);
+}
+#courses{
+    text-align: center;
+    padding-top:clamp(45px, 10vw, 60px);
+    padding-bottom:clamp(15px, 3vw, 25px);
 }
 .card{
 background:white;
 flex:1 1 260px;
-padding:clamp(15px,3vw,20px);
+padding:clamp(10px,3vw,20px);
 text-align:center;
 border-radius:10px;
 box-shadow:0 0 8px gray;
 }
 .card img{
-width:100%;
-max-width:150px;
+width:35%;
+max-width:clamp(80px,28vw,150px);
 }
 .card h3{
-font-size:clamp(1rem,2vw,1.15rem);
+font-size:clamp(0.9rem,2vw,1.15rem);
 margin-top:10px;
 }
 .card p{
@@ -154,6 +211,12 @@ flex-wrap:wrap;
 justify-content:center;
 gap:clamp(12px,2.5vw,20px);
 padding:clamp(15px,4vw,30px);
+margin-top: 90px;
+margin-bottom: 90px;
+padding-top: 90px;
+padding-bottom: 90px;
+background-color: #daebf6;
+box-shadow:0 0 8px gray;
 }
 .mission,
 .vision{
@@ -161,15 +224,16 @@ background:#b2cbda;
 flex:1 1 300px;
 padding:clamp(15px,3vw,20px);
 display:flex;
-align-items:flex-start;
+align-items:center;
 gap:15px;
-border:2px solid #5a6b75;
+border:2px solid #adcee3;
 border-radius:10px;
 box-shadow:0 0 8px gray;
 }
 .mission img,
 .vision img{
 width:clamp(35px,6vw,50px);
+padding-top: 10px;
 flex-shrink:0;
 }
 .mission .text,
@@ -183,7 +247,7 @@ font-size:clamp(1rem,2vw,1.15rem);
 }
 .mission .text p,
 .vision .text p{
-padding-top:20px;
+padding-top:5px;
 font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
 
