@@ -1,0 +1,263 @@
+/* General */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+html{
+font-size:100%;
+}
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#eaf7ff;
+line-height:1.5;
+}
+
+/* Header */
+header{
+background:#003366;
+color:white;
+padding:clamp(15px,4vw,30px);
+text-align:center;
+}
+header h1{
+font-size:clamp(1.4rem,4vw,2.2rem);
+}
+header p{
+font-size:clamp(0.8rem,2vw,1rem);
+}
+
+/* Navigation */
+nav{
+background:#006699;
+position:relative;
+}
+.menu{
+display:flex;
+justify-content:center;
+list-style:none;
+flex-wrap:wrap;
+}
+.menu li{
+position:relative;
+}
+.menu li a{
+display:block;
+padding:15px clamp(12px,2.5vw,25px);
+color:white;
+text-decoration:none;
+font-size:clamp(0.85rem,1.5vw,1rem);
+}
+.menu li:hover{
+background:#004466;
+}
+
+/* Burger */
+.burger{
+display:none;
+flex-direction:column;
+gap:5px;
+cursor:pointer;
+padding:15px;
+position:absolute;
+top:0;
+right:0;
+z-index:10;
+}
+.burger span{
+width:25px;
+height:3px;
+background:white;
+border-radius:2px;
+}
+
+/* Pull-down Menu */
+.submenu{
+display:none;
+position:absolute;
+background:#0088cc;
+list-style:none;
+width:200px;
+z-index:5;
+}
+.submenu li{
+border-bottom:1px solid white;
+}
+.menu li:hover .submenu{
+display:block;
+}
+
+/* Hero */
+.hero{
+padding:clamp(30px,8vw,70px) 20px;
+text-align:center;
+background:linear-gradient(rgba(0,170,255,0.6), rgba(0,170,255,0.6)),
+url("https://images.pexels.com/photos/18145430/pexels-photo-18145430.jpeg") no-repeat center/cover;
+color:white;
+}
+.hero h2{
+font-size:clamp(1.3rem,4.5vw,2rem);
+}
+.hero p{
+font-size:clamp(0.85rem,2vw,1.1rem);
+margin-top:8px;
+}
+.hero button{
+padding:clamp(10px,2vw,12px) clamp(20px,4vw,30px);
+margin-top:20px;
+font-size:clamp(0.9rem,2vw,1.1rem);
+border:none;
+background:orange;
+border-radius:4px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.2s ease;
+}
+.hero button:hover{
+background:#e69500;
+transform:scale(1.05);
+}
+
+/* Flexbox Cards */
+.courses{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:clamp(12px,2.5vw,20px);
+padding:clamp(15px,4vw,30px);
+}
+.card{
+background:white;
+flex:1 1 260px;
+padding:clamp(15px,3vw,20px);
+text-align:center;
+border-radius:10px;
+box-shadow:0 0 8px gray;
+}
+.card img{
+width:100%;
+max-width:150px;
+}
+.card h3{
+font-size:clamp(1rem,2vw,1.15rem);
+margin-top:10px;
+}
+.card p{
+font-size:clamp(0.8rem,1.8vw,0.95rem);
+}
+
+/* About Section */
+.about{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:clamp(12px,2.5vw,20px);
+padding:clamp(15px,4vw,30px);
+}
+.mission,
+.vision{
+background:#b2cbda;
+flex:1 1 300px;
+padding:clamp(15px,3vw,20px);
+display:flex;
+align-items:flex-start;
+gap:15px;
+border:2px solid #5a6b75;
+border-radius:10px;
+box-shadow:0 0 8px gray;
+}
+.mission img,
+.vision img{
+width:clamp(35px,6vw,50px);
+flex-shrink:0;
+}
+.mission .text,
+.vision .text{
+display:flex;
+flex-direction:column;
+}
+.mission .text h2,
+.vision .text h2{
+font-size:clamp(1rem,2vw,1.15rem);
+}
+.mission .text p,
+.vision .text p{
+padding-top:20px;
+font-size:clamp(0.8rem,1.8vw,0.95rem);
+}
+
+/* Footer */
+footer{
+background:#003366;
+color:white;
+text-align:center;
+padding:clamp(15px,3vw,20px);
+margin-top:20px;
+font-size:clamp(0.75rem,1.6vw,0.9rem);
+}
+
+/* ===========================
+Responsive Design
+=========================== */
+
+/* Tablet */
+@media screen and (max-width:1199px){
+.card{
+flex:1 1 45%;
+}
+}
+
+/* Mobile */
+@media screen and (max-width:767px){
+.burger{
+display:flex;
+}
+.menu{
+flex-direction:column;
+display:none;
+width:100%;
+}
+.menu.show{
+display:flex;
+}
+.submenu{
+position:static;
+width:100%;
+}
+.card{
+flex:1 1 100%;
+}
+.mission,
+.vision{
+flex:1 1 100%;
+}
+}
+
+/* ===========================
+Print Style Sheet
+=========================== */
+@media print{
+*{
+-webkit-print-color-adjust:exact;
+print-color-adjust:exact;
+color-adjust:exact;
+}
+.card,
+.mission,
+.vision{
+page-break-inside:avoid;
+break-inside:avoid;
+}
+.about{
+page-break-before:always;
+}
+}
+
+/* ===========================
+Page Size
+=========================== */
+@page{
+size:A4 portrait;
+margin:1in;
+}
