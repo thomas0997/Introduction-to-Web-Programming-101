@@ -270,29 +270,148 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
     font-size: 2rem;
 }
 
+/*
+.services-container{
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+}
+.services-container .courses{
+    display: block;
+    gap: 20px;
+    
+}
+
+.service-images{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.services-container .courses img{
+    width: 140px;          /* fixed width now, instead of width:100% fighting for space */
+/* height: 100px;          bumped up from 100px — this is the actual "bigger overall" change */
+    /* flex: 0 0 140px;  */
+   /* object-fit: cover;     /* crops the image to fill the box without stretching/distorting it */
+
+/* }*/ /* */
+
+/* .services-container .card{
+    margin-top: 90px;
+    background-color: #d8ecf5;
+    margin-left:  auto;
+    margin-right: auto;
+    width: 100%;
+    box-shadow: none;
+} */
 
 .services-container{
     margin-top: 100px;
     margin-bottom: 100px;
-}
-.services-container .courses{
-    display: block;
-    gap: 100px;
+    padding: 0 clamp(20px,4vw,30px);
 }
 
-.services-container .courses img{
+.service-title{
+    font-size: clamp(1.1rem,2.5vw,1.4rem);
+    color: #023047;
+    margin-bottom: 6px;
+    text-align: center;
+    margin-top: 90px;
+}
+.service-desc{
+    font-size: clamp(0.85rem,1.8vw,1rem);
+    color: #023047;
+    margin-bottom: 15px;
+    text-align: center;
+    margin-top: -10px
+}
+
+.service-row{
+    display: flex;
     width: 100%;
-    height: 100px;         /* fixed height — every image becomes the same size now */
-    object-fit: cover;     /* crops the image to fill the box without stretching/distorting it */
-    border-radius: 7px;
-    box-shadow:0 0 8px rgba(2,48,71,0.18);
+    margin-bottom: 40px;
+}
+.service-row:last-child{
+    margin-bottom: 0;
+}
 
+.service-photo{
+    flex: 1;
+    height: 220px;
+    overflow: auto;
+}
+.service-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;  /* transitions the property that actually changes on hover */
+}
+
+.service-photo img:hover{
+    transform: scale(1.05);              /* subtle zoom-in, matches the hover pattern your course cards use */
 }
 
 
 
+/* Contatcts */
 .contact-container{
     margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 0 clamp(20px,4vw,30px);
+}
+
+.contact-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(15px,2.5vw,20px);
+    max-width: 900px;
+    margin: 40px auto 0;
+}
+
+.contact-item{
+    background: white;
+    flex: 1 1 220px;
+    padding: clamp(20px,3vw,25px);
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(2,48,71,0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-item:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 0 8px rgba(2,48,71,0.5);
+}
+
+.contact-label{
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #219EBC;
+    margin-bottom: 8px;
+}
+.contact-item p{
+    font-size: clamp(0.95rem,1.8vw,1.05rem);
+    color: #023047;
+    font-weight: 500;
+}
+
+.contact-container img{
+    width: 20%;
+}
+
+.contact-item a{
+    color: #023047;
+    text-decoration: none;
+}
+.contact-item a:hover{
+    color: #219EBC;
+    text-decoration: underline;
 }
 
 
@@ -307,14 +426,13 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 
 .slideshow{
     display: flex;
-    gap: 20px;
     width:max-content;
     animation: scrollLeft 20s linear infinite;
 
 }
 
 .slide{
-    width: 250px;
+    width: 450px;
     flex-shrink: 0;
     position: relative;
 }
@@ -322,9 +440,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
     width: 100%;
     object-fit:cover;
     box-shadow:0 0 8px rgba(2,48,71,0.18);
-    border-radius: 7px;
     display:block;
-
 
 }
 
@@ -333,7 +449,6 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
     position: absolute;
     inset: 0;           
     background: rgba(0,0,0,0.35);
-    border-radius: 7px;
     z-index: 1;
 
 
