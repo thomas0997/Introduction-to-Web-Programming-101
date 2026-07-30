@@ -6,6 +6,7 @@ box-sizing:border-box;
 }
 html{
 font-size:100%;
+scroll-behavior: smooth;
 }
 body{
 font-family:"Geist", Arial, Helvetica, sans-serif;
@@ -13,8 +14,15 @@ background:#eaf7ff;
 line-height:1.5;
 }
 
+/* Sections targeted by nav links get scroll-margin so the sticky nav
+   doesn't cover the top of the section when jumped to */
+#hero, #courses, #services, #gallery, #contact{
+    scroll-margin-top: 80px;
+}
+
 /* Header */
 header{
+position: relative;
 background:linear-gradient(135deg, #023047, #219EBC);
 color:white;
 padding:clamp(15px,4vw,30px);
@@ -29,8 +37,10 @@ font-size:clamp(0.8rem,2vw,1rem);
 
 /* Navigation */
 nav{
-background:#eaf7ff;
-position:relative;
+    background:#eaf7ff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .menu{
@@ -59,7 +69,7 @@ bottom:8px;
 width:0;
 height:3px;
 background:#219EBC;
-transition: width 0.25s ease, left 0.25s ease;
+transition: width 0.75s ease, left 0.75s ease;
 }
 .menu > li:hover > a{
 color:#219EBC;
@@ -82,22 +92,45 @@ left:20%;
 display:block;
 }
 
+/* Highlights the nav link matching the section currently in view */
+.nav-link.active{
+    color: #219EBC;
+}
+.nav-link.active::after{
+    width: 60%;
+    left: 20%;
+}
+
+/* Submenu toggle button — mobile only */
+.submenu-toggle{
+    display: none;
+    background: none;
+    border: none;
+    color: #023047;
+    font-size: 1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+}
+
 /* Burger */
 .burger{
-display:none;
-flex-direction:column;
-gap:5px;
-cursor:pointer;
-padding:15px;
-position:absolute;
-top:0;
-right:0;
-z-index:10;
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+    padding:15px;
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    z-index:10;
 }
+
 .burger span{
 width:25px;
 height:3px;
-background:#023047;
+background:white;
 border-radius:2px;
 }
 
@@ -201,8 +234,12 @@ transition: transform 0.3s ease;
 }
 .card:hover{
     transform: translate(0px, -10px);
-    box-shadow:0 0 8px rgba(2,48,71,0.5);
+    box-shadow:0 0 8px rgba(2,48,71,0.2);
 
+}
+/* Only course cards (the ones with data-course) are clickable */
+.card[data-course]{
+    cursor: pointer;
 }
 .card img{
 width:35%;
@@ -217,6 +254,61 @@ color:#023047;
 font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
 
+/* Course detail modal */
+.course-modal-overlay{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(2,48,71,0.6);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.course-modal-overlay.show{
+    display: flex;
+}
+.course-modal{
+    background: white;
+    border-radius: 12px;
+    padding: clamp(20px,4vw,25px);
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: courseModalPop 0.25s ease;
+}
+@keyframes courseModalPop{
+    from{ opacity: 0; transform: scale(0.9); }
+    to{ opacity: 1; transform: scale(1); }
+}
+.course-modal-close{
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #023047;
+}
+.course-modal h3{
+    color: #023047;
+    margin-bottom: 8px;
+    padding-right: 20px;
+}
+.course-modal p{
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #023047;
+}
+.course-modal ul{
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: #023047;
+}
+
 /* About Section */
 .about{
 display:flex;
@@ -228,8 +320,10 @@ margin-top: 90px;
 margin-bottom: 90px;
 padding-top: 90px;
 padding-bottom: 90px;
-background-color:#d8ecf5;
-box-shadow:0 0 8px rgba(2,48,71,0.18);
+background-color: #d8ecf5;
+
+
+
 }
 .mission,
 .vision{
@@ -239,9 +333,9 @@ padding:clamp(15px,3vw,20px);
 display:flex;
 align-items:center;
 gap:15px;
-border:2px solid #a9d6ea;
+transition: transform 0.25s ease;
 border-radius:10px;
-box-shadow:0 0 8px rgba(2,48,71,0.18);
+box-shadow:0 0 8px rgba(2,48,71,0.5);
 }
 .mission img,
 .vision img{
@@ -264,48 +358,15 @@ color:#023047 !important;
 padding-top:5px;
 font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
+.mission:hover,
+.vision:hover{
+    transform: scale(1.03);
+}
 
 #gallery, #services, #contact{
     text-align: center;
     font-size: 2rem;
 }
-
-/*
-.services-container{
-    margin-top: 100px;
-    margin-bottom: 100px;
-
-}
-.services-container .courses{
-    display: block;
-    gap: 20px;
-    
-}
-
-.service-images{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.services-container .courses img{
-    width: 140px;          /* fixed width now, instead of width:100% fighting for space */
-/* height: 100px;          bumped up from 100px — this is the actual "bigger overall" change */
-    /* flex: 0 0 140px;  */
-   /* object-fit: cover;     /* crops the image to fill the box without stretching/distorting it */
-
-/* }*/ /* */
-
-/* .services-container .card{
-    margin-top: 90px;
-    background-color: #d8ecf5;
-    margin-left:  auto;
-    margin-right: auto;
-    width: 100%;
-    box-shadow: none;
-} */
 
 .services-container{
     margin-top: 100px;
@@ -347,11 +408,11 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.25s ease;  /* transitions the property that actually changes on hover */
+    transition: transform 0.25s ease;
 }
 
 .service-photo img:hover{
-    transform: scale(1.05);              /* subtle zoom-in, matches the hover pattern your course cards use */
+    transform: scale(1.05);
 }
 
 
@@ -472,18 +533,6 @@ from{ transform:translateX(0); }
 to{ transform:translateX(-50%); }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* Footer */
 footer{
 background:#023047;
@@ -493,10 +542,6 @@ padding:clamp(15px,3vw,20px);
 margin-top:20px;
 font-size:clamp(0.75rem,1.6vw,0.9rem);
 }
-
-
-
-
 
 /* ===========================
 Responsive Design
@@ -513,6 +558,48 @@ flex:1 1 45%;
 @media screen and (max-width:767px){
 .burger{
 display:flex;
+}
+header{
+    text-align: left;
+}
+
+.card{
+    padding: clamp(8px,2.5vw,15px);
+}
+.card img{
+    max-width: 60px;
+}
+
+.service-photo{
+    height: 140px;
+}
+
+.contact-item{
+    padding: clamp(12px,3vw,18px);
+}
+.contact-container img{
+    width: 15%;
+}
+
+.mission img,
+.vision img{
+    width: 30px;
+}
+
+.slide{
+    width: 260px;
+}
+header h1{
+    font-size:clamp(0.2rem,4vw,2.2rem);
+}
+.menu li{
+    position: relative;
+}
+.submenu-toggle{
+    display: block;
+}
+.submenu.show{
+    display: block;
 }
 .menu{
 flex-direction:column;

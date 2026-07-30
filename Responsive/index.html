@@ -16,12 +16,19 @@
         <header>
             <h1><span style="color:#FB8500">A</span><span style="color: #FFB703;">B</span><span style="color: #fff703;">C</span> Training Center</h1>
             <p>Building Skills for Tomorrow</p>
+            <div class="burger" id="burger" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </header>
+
     <nav>
-        <ul class="menu">
-        <li><a href="#hero">Home</a></li>
+        <ul class="menu" id="menu">
+        <li><a href="#hero" class="nav-link">Home</a></li>
             <li>
-                <a href="#courses">Courses</a>
+                <a href="#courses" class="nav-link">Courses</a>
+                <button class="submenu-toggle" aria-label="Toggle Courses submenu" aria-expanded="false">▾</button>
                 <ul class="submenu">
                     <li><a href="#">Web Development</a></li>
                     <li><a href="#">Networking</a></li>
@@ -29,28 +36,33 @@
                 </ul>
                 </li>
                 <li>
-                    <a href="#services">Services</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <button class="submenu-toggle" aria-label="Toggle Services submenu" aria-expanded="false">▾</button>
                       <ul class="submenu">
-                    <li><a href="#">Education</a></li>
-                    <li><a href="#">Other</a></li>
+                    <li><a href="#corporate-training">Corporate Training</a></li>
+                    <li><a href="#certification">Certification Prep</a></li>
+                    <li><a href="#career-counseling">Cereer Counseling</a></li>
     
                         </ul>
                     
                 </li>
                 
-                <li><a href="#gallery">Gallery</a>
+                <li><a href="#gallery" class="nav-link">Gallery</a>
+                <button class="submenu-toggle" aria-label="Toggle Gallery submenu" aria-expanded="false">▾</button>
                             <ul class="submenu">
-                    <li><a href="#">Exhibition</a></li>
+                    <li><a href="#sliders">Exhibitions</a></li>
                     <li><a href="#">Other</a></li>
     
                         </ul>
                 </li>
-                <li><a href="#contact">Contact</a>
-                         <ul class="submenu">
-                    <li><a href="#">Email</a></li>
-                    <li><a href="#">Other</a></li>
-    
-                        </ul></li>
+                <li><a href="#contact" class="nav-link">Contact</a>
+                <button class="submenu-toggle" aria-label="Toggle Contact submenu" aria-expanded="false">▾</button>
+                    <ul class="submenu">
+                        <li><a href="#email">Email</a></li>
+                        <li><a href="#phone">Phone</a></li>
+                        <li><a href="#address">Address</a></li>
+                    </ul>
+                </li>
         </ul>
 
     </nav>
@@ -68,32 +80,32 @@
     <main>
         <h2 id="courses">Our <span style="color: #FB8500">Courses</span> Offered</h2>
         <section class="courses">
-            <div class="card">
+            <div class="card" data-course="html" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View HTML course details">
                 <img src="https://img.icons8.com/?size=100&id=20909&format=png&color=000000" alt="HTML Logo">
                 <h3>HTML</h3>
                 <p>Create modern webpages.</p>
                 </div>
-                    <div class="card">
+                    <div class="card" data-course="css" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View CSS course details">
                     <img src="https://img.icons8.com/?size=100&id=YjeKwnSQIBUq&format=png&color=000000" alt="CSS Logo">
                     <h3>CSS</h3>
                     <p>Design responsive websites.</p>
                 </div>
-                <div class="card">
+                <div class="card" data-course="javascript" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View JavaScript course details">
                     <img src="https://img.icons8.com/?size=100&id=k0mhEXozIpG1&format=png&color=000000" alt="JavaScript Logo">
                     <h3>JavaScript</h3>
                     <p>Add interactivity.</p>
                 </div>
-                <div class="card">
+                <div class="card" data-course="python" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View Python course details">
                     <img src="https://img.icons8.com/?size=100&id=qBvOwZw81tVy&format=png&color=000000" alt="Python Logo">
                     <h3>Python</h3>
                     <p>Programming Fundamentals.</p>
                 </div>
-                <div class="card">
+                <div class="card" data-course="networking" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View Networking course details">
                     <img src="https://img.icons8.com/?size=100&id=124194&format=png&color=000000" alt="Networking Logo">
                     <h3>Networking</h3>
                     <p>Computer Networks.</p>
                 </div>
-                <div class="card">
+                <div class="card" data-course="database" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View Database course details">
                     <img style="width: 35%;" src="https://img.icons8.com/?size=100&id=NFQusZJ4neki&format=png&color=000000" alt="Database Logo">
                     <h3>Database</h3>
                     <p>Manage Information Systems.</p>
@@ -124,7 +136,7 @@
     <section class="services-container">
         <h2 id="services">Our<span style="color: #FB8500;"> Services</span></h2>
 
-        <h3 class="service-title">Corporate Training</h3>
+        <h3 class="service-title" id="corporate-training">Corporate Training</h3>
         <p class="service-desc">Customized IT training programs for teams and organizations.</p>
         <div class="service-row">
             <div class="service-photo">
@@ -141,7 +153,7 @@
             </div>
         </div>
 
-        <h3 class="service-title">Certification Prep</h3>
+        <h3 class="service-title" id="certification">Certification Prep</h3>
         <p class="service-desc">Guided review sessions for industry certifications.</p>
         <div class="service-row">
             <div class="service-photo">
@@ -158,7 +170,7 @@
             </div>
         </div>
 
-        <h3 class="service-title">Career Counseling</h3>
+        <h3 class="service-title" id="career-counseling">Career Counseling</h3>
         <p class="service-desc">One-on-one guidance to help you plan your IT career path.</p>
         <div class="service-row">
             <div class="service-photo">
@@ -179,8 +191,8 @@
 
 
     <section id="course-container">
-        <h2 id="gallery">Gallery</h2>
-        <section class="courses">
+        <h2 id="gallery" style="color: #FB8500;">Gallery</h2>
+        <section class="courses" id="sliders">
             <div class="slideshow">
                 <div class="slide">
                     <img src="https://images.unsplash.com/photo-1637073849667-91120a924221?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="students-coding">
@@ -251,19 +263,19 @@
 
     <section class="contact-container">
         <h2 id="contact">Contact<span style="color: #FB8500;"> Us</span></h2>
-        <div class="contact-grid">
+        <div class="contact-grid" id="email">
             <div class="contact-item">
                 <img src="https://img.icons8.com/?size=100&id=mtfWz20b5AxB&format=png&color=000000" alt="email-icon">
                 <span class="contact-label">Email</span>
             
                 <p><a href="mailto:info@abctraining.com">info@abctraining.com</a></p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item" id="phone">
                 <img src="https://img.icons8.com/?size=100&id=FWYMZlD4gLUg&format=png&color=000000" alt="phone-icon">
                 <span class="contact-label">Phone</span>
                 <p><a href="tel:+639451234567">(045) 123-4567</a></p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item" id="address">
                 <img src="https://img.icons8.com/?size=100&id=KhTqVn8IYJTJ&format=png&color=000000" alt="address-icon">
                 <span class="contact-label">Address</span>
                 <p>Angeles City, Pampanga</p>
@@ -278,5 +290,139 @@
     <p>Email: info@abctraining.com</p>
     <p>Made by Thomas Franco; CYB-201</p>
 </footer>
+
+<!-- Course detail modal, hidden until a course card is clicked -->
+<div class="course-modal-overlay" id="course-modal-overlay">
+    <div class="course-modal" role="dialog" aria-modal="true" aria-labelledby="course-modal-title">
+        <button class="course-modal-close" id="course-modal-close" aria-label="Close course details">&times;</button>
+        <h3 id="course-modal-title"></h3>
+        <p id="course-modal-duration"></p>
+        <p id="course-modal-desc"></p>
+        <ul id="course-modal-skills"></ul>
+    </div>
+</div>
+
+<script>
+// This part is heavily ai assisted
+/* ---- Burger menu toggle ---- */
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+
+burger.addEventListener('click', () => {
+    menu.classList.toggle('show');
+});
+
+/* ---- Submenu toggles (mobile) ---- */
+document.querySelectorAll('.submenu-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const submenu = btn.nextElementSibling;
+        const isOpen = submenu.classList.toggle('show');
+        btn.setAttribute('aria-expanded', isOpen);
+        btn.textContent = isOpen ? '▴' : '▾';
+    });
+});
+
+/* ---- Highlight active nav link on scroll ---- */
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('#hero, #courses, #services, #gallery, #contact');
+
+const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        }
+    });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+sections.forEach(section => sectionObserver.observe(section));
+
+/* ---- Course card data ---- */
+const courseData = {
+    html: {
+        name: "HTML Fundamentals",
+        duration: "20 Hours",
+        description: "Learn the structure of webpages using HTML5.",
+        skills: ["Semantic HTML", "Forms", "Tables", "Multimedia"]
+    },
+    css: {
+        name: "CSS Styling & Layout",
+        duration: "25 Hours",
+        description: "Design responsive, modern websites with CSS3.",
+        skills: ["Responsive Design", "Flexbox", "Grid Layout", "Animations", "Media Queries"]
+    },
+    javascript: {
+        name: "JavaScript Essentials",
+        duration: "30 Hours",
+        description: "Add interactivity and logic to your webpages.",
+        skills: ["Variables", "Functions", "DOM Manipulation", "Events", "Validation"]
+    },
+    python: {
+        name: "Python Programming",
+        duration: "35 Hours",
+        description: "Build a strong foundation in Python programming.",
+        skills: ["Python Syntax", "Variables", "Loops", "Functions", "File Handling"]
+    },
+    networking: {
+        name: "Networking Fundamentals",
+        duration: "28 Hours",
+        description: "Understand how computer networks communicate.",
+        skills: ["OSI Model", "TCP/IP", "IP Addressing", "Routing", "Switching"]
+    },
+    database: {
+        name: "Database Management",
+        duration: "24 Hours",
+        description: "Learn to design and manage relational databases.",
+        skills: ["SQL", "Tables", "Primary Keys", "Foreign Keys", "CRUD Operations"]
+    }
+};
+
+/* ---- Course card modal ---- */
+const modalOverlay = document.getElementById('course-modal-overlay');
+const modalTitle = document.getElementById('course-modal-title');
+const modalDuration = document.getElementById('course-modal-duration');
+const modalDesc = document.getElementById('course-modal-desc');
+const modalSkills = document.getElementById('course-modal-skills');
+const modalClose = document.getElementById('course-modal-close');
+
+function openCourseModal(courseKey){
+    const course = courseData[courseKey];
+    if (!course) return;
+    modalTitle.textContent = course.name;
+    modalDuration.textContent = `Duration: ${course.duration}`;
+    modalDesc.textContent = course.description;
+    modalSkills.innerHTML = '';
+    course.skills.forEach(skill => {
+        const li = document.createElement('li');
+        li.textContent = skill;
+        modalSkills.appendChild(li);
+    });
+    modalOverlay.classList.add('show');
+}
+
+function closeCourseModal(){
+    modalOverlay.classList.remove('show');
+}
+
+document.querySelectorAll('.card[data-course]').forEach(card => {
+    card.addEventListener('click', () => openCourseModal(card.dataset.course));
+    card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCourseModal(card.dataset.course);
+        }
+    });
+});
+
+modalClose.addEventListener('click', closeCourseModal);
+modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) closeCourseModal();
+});
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeCourseModal();
+});
+</script>
 </body>
 </html>
