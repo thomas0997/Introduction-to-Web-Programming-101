@@ -6,7 +6,7 @@ box-sizing:border-box;
 }
 html{
 font-size:100%;
-scroll-behavior: smooth;
+scroll-behavior: smooth; /* makes anchor links scroll instead of jump */
 }
 body{
 font-family:"Geist", Arial, Helvetica, sans-serif;
@@ -14,15 +14,14 @@ background:#eaf7ff;
 line-height:1.5;
 }
 
-/* Sections targeted by nav links get scroll-margin so the sticky nav
-   doesn't cover the top of the section when jumped to */
+/* offsets scroll target so sticky nav doesnt cover the heading when u click a link */
 #hero, #courses, #services, #gallery, #contact{
     scroll-margin-top: 80px;
 }
 
 /* Header */
 header{
-position: relative;
+position: relative; /* burger needs this to position itself right */
 background:linear-gradient(135deg, #023047, #219EBC);
 color:white;
 padding:clamp(15px,4vw,30px);
@@ -38,7 +37,7 @@ font-size:clamp(0.8rem,2vw,1rem);
 /* Navigation */
 nav{
     background:#eaf7ff;
-    position: sticky;
+    position: sticky; /* stays at top once u scroll past it, doesnt cover header tho */
     top: 0;
     z-index: 100;
 }
@@ -58,9 +57,10 @@ text-decoration:none;
 font-size:clamp(0.85rem,1.5vw,1rem);
 font-weight:bold;
 border-radius:0;
-position:relative;
+position:relative; /* so the underline thing below can attach to this */
 transition: color 0.25s ease;
 }
+/* this is the little underline under nav links, starts invisible (width 0) */
 .menu li a::after{
 content:"";
 position:absolute;
@@ -74,6 +74,7 @@ transition: width 0.75s ease, left 0.75s ease;
 .menu > li:hover > a{
 color:#219EBC;
 }
+/* underline grows out on hover */
 .menu > li:hover > a::after{
 width:60%;
 left:20%;
@@ -92,7 +93,7 @@ left:20%;
 display:block;
 }
 
-/* Highlights the nav link matching the section currently in view */
+/* this is the js adding .active to whatever section ur scrolled to rn */
 .nav-link.active{
     color: #219EBC;
 }
@@ -101,9 +102,9 @@ display:block;
     left: 20%;
 }
 
-/* Submenu toggle button — mobile only */
+/* little arrow btn to open submenus on mobile since no hover on phones */
 .submenu-toggle{
-    display: none;
+    display: none; /* only shows up in mobile media query below */
     background: none;
     border: none;
     color: #023047;
@@ -116,7 +117,7 @@ display:block;
 
 /* Burger */
 .burger{
-    display:none;
+    display:none; /* hidden until mobile breakpoint */
     flex-direction:column;
     gap:5px;
     cursor:pointer;
@@ -136,7 +137,7 @@ border-radius:2px;
 
 /* Pull-down Menu */
 .submenu{
-display:none;
+display:none; /* toggled by hover on desktop, js click on mobile */
 position:absolute;
 background:#219EBC;
 list-style:none;
@@ -237,7 +238,7 @@ transition: transform 0.3s ease;
     box-shadow:0 0 8px rgba(2,48,71,0.2);
 
 }
-/* Only course cards (the ones with data-course) are clickable */
+/* only the course cards get pointer cursor, services/contact cards arent clickable */
 .card[data-course]{
     cursor: pointer;
 }
@@ -254,7 +255,7 @@ color:#023047;
 font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
 
-/* Course detail modal */
+/* modal popup that shows when u click a course card, hidden til js adds .show */
 .course-modal-overlay{
     display: none;
     position: fixed;
@@ -276,7 +277,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
     width: 100%;
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    animation: courseModalPop 0.25s ease;
+    animation: courseModalPop 0.25s ease; /* lil pop in effect */
 }
 @keyframes courseModalPop{
     from{ opacity: 0; transform: scale(0.9); }
@@ -368,6 +369,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
     font-size: 2rem;
 }
 
+/* Services section, each serice is its own rwo not a card */
 .services-container{
     margin-top: 100px;
     margin-bottom: 100px;
@@ -399,7 +401,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
 
 .service-photo{
-    flex: 1;
+    flex: 1; /* photos split the row evenly */
     height: 220px;
     overflow: auto;
 }
@@ -412,7 +414,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
 
 .service-photo img:hover{
-    transform: scale(1.05);
+    transform: scale(1.05); /* zoom in a bit on hover */
 }
 
 
@@ -476,25 +478,21 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 }
 
 
-
-
-
-/*slideshow DIY*/
-
+/* slidshow, images are doubled up in the html so the loop looks seamless */
 #course-container .courses{
-    overflow: hidden;
+    overflow: hidden; /* hides the second copy of slides until they scroll into view */
 }
 
 .slideshow{
     display: flex;
     width:max-content;
-    animation: scrollLeft 20s linear infinite;
+    animation: scrollLeft 20s linear infinite; /* change 20s to speed up/slow down */
 
 }
 
 .slide{
     width: 450px;
-    flex-shrink: 0;
+    flex-shrink: 0; /* stops slides from getting squished */
     position: relative;
 }
 .slide img{
@@ -505,6 +503,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 
 }
 
+/* dark overlay so the caption text is readable over the photo */
 .slide::before{
     content: "";
     position: absolute;
@@ -528,6 +527,7 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 
 }
 
+/* moves the track left by half its width, since its doubled this loops seamless */
 @keyframes scrollLeft{
 from{ transform:translateX(0); }
 to{ transform:translateX(-50%); }
@@ -554,10 +554,10 @@ flex:1 1 45%;
 }
 }
 
-/* Mobile */
+/* Mobile, everything under here only kicks in on phones */
 @media screen and (max-width:767px){
 .burger{
-display:flex;
+display:flex; /* burger only visible on mobile */
 }
 header{
     text-align: left;
@@ -587,27 +587,27 @@ header{
 }
 
 .slide{
-    width: 260px;
+    width: 260px; /* smaller cuz 450px was too wide for most phones */
 }
 header h1{
     font-size:clamp(0.2rem,4vw,2.2rem);
 }
 .menu li{
-    position: relative;
+    position: relative; /* so submenu toggle btn can position itself */
 }
 .submenu-toggle{
-    display: block;
+    display: block; /* only shows up here on mobile */
 }
 .submenu.show{
-    display: block;
+    display: block; /* js adds this class when toggle btn is tapped */
 }
 .menu{
 flex-direction:column;
-display:none;
+display:none; /* hidden til burger is clicked */
 width:100%;
 }
 .menu.show{
-display:flex;
+display:flex; /* js toggles this class */
 }
 .submenu{
 position:static;
