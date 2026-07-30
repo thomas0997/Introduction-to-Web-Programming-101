@@ -144,6 +144,7 @@ color:white;
 .hero h2{
 font-size:clamp(1.1rem,4.5vw,2rem);
 text-shadow: 1px 4px 3px rgba(0,0,0,0.5);
+
 }
 .hero p{
 font-size:clamp(0.85rem,2vw,1.1rem);
@@ -175,10 +176,12 @@ justify-content:center;
 gap:clamp(15px,1.5vw,20px);
 padding:clamp(20px,4vw,30px);
 }
+
 #courses{
     text-align: center;
     padding-top:clamp(45px, 10vw, 60px);
     padding-bottom:clamp(15px, 3vw, 25px);
+    font-size: 2rem;
     color:#023047;
 }
 #course-container{
@@ -194,6 +197,12 @@ padding:clamp(10px,3vw,20px);
 text-align:center;
 border-radius:10px;
 box-shadow:0 0 8px rgba(2,48,71,0.18);
+transition: transform 0.3s ease; 
+}
+.card:hover{
+    transform: translate(0px, -10px);
+    box-shadow:0 0 8px rgba(2,48,71,0.5);
+
 }
 .card img{
 width:35%;
@@ -258,17 +267,108 @@ font-size:clamp(0.8rem,1.8vw,0.95rem);
 
 #gallery, #services, #contact{
     text-align: center;
+    font-size: 2rem;
 }
+
 
 .services-container{
     margin-top: 100px;
     margin-bottom: 100px;
+}
+.services-container .courses{
+    display: block;
+    gap: 100px;
+}
+
+.services-container .courses img{
+    width: 100%;
+    height: 100px;         /* fixed height — every image becomes the same size now */
+    object-fit: cover;     /* crops the image to fill the box without stretching/distorting it */
+    border-radius: 7px;
+    box-shadow:0 0 8px rgba(2,48,71,0.18);
 
 }
+
+
 
 .contact-container{
     margin-top: 100px;
 }
+
+
+
+
+
+/*slideshow DIY*/
+
+#course-container .courses{
+    overflow: hidden;
+}
+
+.slideshow{
+    display: flex;
+    gap: 20px;
+    width:max-content;
+    animation: scrollLeft 20s linear infinite;
+
+}
+
+.slide{
+    width: 250px;
+    flex-shrink: 0;
+    position: relative;
+}
+.slide img{
+    width: 100%;
+    object-fit:cover;
+    box-shadow:0 0 8px rgba(2,48,71,0.18);
+    border-radius: 7px;
+    display:block;
+
+
+}
+
+.slide::before{
+    content: "";
+    position: absolute;
+    inset: 0;           
+    background: rgba(0,0,0,0.35);
+    border-radius: 7px;
+    z-index: 1;
+
+
+}
+
+.slide-caption{
+    position: absolute;
+    font-size: 1rem;
+    color: #eaf7ff;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+}
+
+@keyframes scrollLeft{
+from{ transform:translateX(0); }
+to{ transform:translateX(-50%); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Footer */
 footer{
 background:#023047;
@@ -278,6 +378,9 @@ padding:clamp(15px,3vw,20px);
 margin-top:20px;
 font-size:clamp(0.75rem,1.6vw,0.9rem);
 }
+
+
+
 
 
 /* ===========================
