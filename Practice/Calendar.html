@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>roomsync — CYB-201</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E13; --surface:#12161D; --surface2:#181D26; --border:#242B36;
+    --text:#E7EBF0; --text-dim:#8B95A5;
+    --amber:#F2B33D; --green:#3FCB7C; --red:#F85E5E; --blue:#5B9DF9; --purple:#B388F2;
+    --mono:'JetBrains Mono', monospace; --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:var(--sans);}
+  ::selection{background:var(--amber); color:#0B0E13;}
+  a{color:inherit; text-decoration:none;}
+
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px; border-bottom:1px solid var(--border); background:var(--surface);
+    position:sticky; top:0; z-index:20;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{width:28px;height:28px; border:1.5px solid var(--amber); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--amber); font-weight:700;}
+  .brand-name{font-family:var(--mono); font-weight:700; font-size:15px;}
+  .brand-name span{color:var(--text-dim); font-weight:400;}
+  .room-pill{font-family:var(--mono); font-size:11px; color:var(--text-dim); border:1px solid var(--border); padding:4px 10px; border-radius:20px; margin-left:14px;}
+
+  .navlinks{display:flex; gap:2px;}
+  .navlinks a{font-size:13px; font-weight:500; color:var(--text-dim); padding:8px 14px; border-radius:7px;}
+  .navlinks a:hover{color:var(--text); background:var(--surface2);}
+
+  .top-right{display:flex; align-items:center; gap:16px;}
+  .bell{position:relative; color:var(--text-dim); font-size:16px;}
+  .bell .dot{position:absolute; top:-3px; right:-4px; width:7px; height:7px; background:var(--red); border-radius:50%;}
+  .avatar{width:30px;height:30px; border-radius:50%; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--amber);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+  section{padding:56px 0; border-bottom:1px solid var(--border);}
+  section:last-child{border-bottom:none;}
+  .eyebrow{font-family:var(--mono); font-size:11px; color:var(--amber); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;}
+  .sec-title{font-size:22px; font-weight:700; margin-bottom:4px;}
+  .sec-sub{font-size:13px; color:var(--text-dim); margin-bottom:22px;}
+  .btn{font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 16px; border-radius:8px; border:none; cursor:pointer;}
+  .btn-primary{background:var(--amber); color:#0B0E13;}
+  .btn-ghost{background:transparent; border:1px solid var(--border); color:var(--text);}
+
+  /* HOME / hero */
+  #home{padding-top:40px;}
+  .hero{background:linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border:1px solid var(--border); border-radius:14px; padding:22px 26px; margin-bottom:22px; position:relative; overflow:hidden;}
+  .hero::before{content:''; position:absolute; top:-40%; right:-8%; width:280px; height:280px; background:radial-gradient(circle, rgba(242,179,61,0.10) 0%, transparent 70%);}
+  .hero-eyebrow{font-family:var(--mono); font-size:11px; color:var(--amber); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px;}
+  .hero-body{display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;}
+  .hero-title{font-size:21px; font-weight:700; margin-bottom:6px;}
+  .hero-meta{display:flex; gap:14px; font-size:12.5px; color:var(--text-dim); flex-wrap:wrap;}
+  .hero-tag{font-family:var(--mono); font-size:11px; padding:2px 8px; border-radius:5px; background:rgba(91,157,249,0.12); color:var(--blue); border:1px solid rgba(91,157,249,0.25);}
+  .countdown{font-family:var(--mono); font-size:30px; font-weight:700; color:var(--amber);}
+  .countdown-label{font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; text-align:right; margin-top:2px;}
+
+  .list{display:flex; flex-direction:column; gap:10px;}
+  .todo-card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; align-items:center; gap:14px;}
+  .due-chip{font-family:var(--mono); font-size:11px; font-weight:700; text-align:center; padding:6px 4px; border-radius:7px; width:52px; flex-shrink:0;}
+  .due-chip .d{font-size:15px; display:block;}
+  .due-soon{background:rgba(248,94,94,0.12); color:var(--red);}
+  .due-mid{background:rgba(242,179,61,0.12); color:var(--amber);}
+  .due-far{background:rgba(63,203,124,0.12); color:var(--green);}
+  .todo-info{flex:1; min-width:0;}
+  .todo-title{font-size:14px; font-weight:600; margin-bottom:3px;}
+  .todo-meta{font-size:12px; color:var(--text-dim); display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .subject-tag{font-family:var(--mono); font-size:10.5px; color:var(--text-dim); border:1px solid var(--border); padding:1px 6px; border-radius:4px;}
+  .exam-tag{font-family:var(--mono); font-size:10.5px; color:var(--red); border:1px solid rgba(248,94,94,0.3); background:rgba(248,94,94,0.08); padding:1px 6px; border-radius:4px;}
+  .status-pill{font-family:var(--mono); font-size:10.5px; padding:3px 9px; border-radius:20px; flex-shrink:0; text-transform:uppercase;}
+  .status-approved{background:rgba(63,203,124,0.12); color:var(--green); border:1px solid rgba(63,203,124,0.25);}
+  .status-pending{background:rgba(242,179,61,0.12); color:var(--amber); border:1px solid rgba(242,179,61,0.25);}
+
+  /* CONFLICT DETECTOR — signature feature */
+  .conflict-card{
+    background:var(--surface); border:1px solid rgba(248,94,94,0.35); border-radius:12px;
+    padding:18px 20px; margin-bottom:14px; position:relative;
+  }
+  .conflict-card.resolved{border-color:rgba(63,203,124,0.3);}
+  .conflict-flag{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; color:var(--red); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:12px;}
+  .conflict-flag.ok{color:var(--green);}
+  .conflict-title{font-size:14px; font-weight:600; margin-bottom:12px;}
+  .conflict-diff{display:flex; gap:0; border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:12px;}
+  .diff-side{flex:1; padding:12px 14px;}
+  .diff-side.canvas{border-right:1px solid var(--border);}
+  .diff-label{font-family:var(--mono); font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;}
+  .diff-date{font-family:var(--mono); font-size:16px; font-weight:700;}
+  .diff-side.canvas .diff-date{color:var(--blue);}
+  .diff-side.peer .diff-date{color:var(--amber);}
+  .diff-src{font-size:11px; color:var(--text-dim); margin-top:4px;}
+  .quorum{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--text-dim);}
+  .quorum-bar{flex:1; height:5px; background:var(--surface2); border-radius:3px; overflow:hidden;}
+  .quorum-fill{height:100%; background:var(--amber); width:66%;}
+  .conflict-actions{display:flex; gap:8px; margin-top:14px;}
+
+  /* CALENDAR */
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:16px;}
+  .cal-dow{font-family:var(--mono); font-size:10px; color:var(--text-dim); text-align:center; padding-bottom:6px; text-transform:uppercase;}
+  .cal-cell{aspect-ratio:1; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:6px; font-family:var(--mono); font-size:11px; color:var(--text-dim); position:relative;}
+  .cal-cell.today{border-color:var(--amber); color:var(--amber);}
+  .cal-cell.exam-day{border-color:rgba(248,94,94,0.5);}
+  .cal-cell.empty{background:transparent; border:none;}
+  .cal-dot{width:5px; height:5px; border-radius:50%; position:absolute; bottom:6px; left:6px;}
+  .cal-legend{display:flex; gap:18px; margin-top:14px; font-size:11px; color:var(--text-dim);}
+  .cal-legend span{display:flex; align-items:center; gap:6px;}
+  .leg-dot{width:8px;height:8px;border-radius:50%; display:inline-block;}
+  .exam-lock-note{font-size:11.5px; color:var(--text-dim); margin-top:10px; font-family:var(--mono);}
+
+  /* NOTES */
+  .notes-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; margin-top:6px;}
+  .note-card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px;}
+  .note-icon{font-family:var(--mono); font-size:10px; color:var(--blue); border:1px solid rgba(91,157,249,0.3); background:rgba(91,157,249,0.1); width:fit-content; padding:2px 6px; border-radius:4px; margin-bottom:10px;}
+  .note-title{font-size:13px; font-weight:600; margin-bottom:4px;}
+  .note-meta{font-size:11px; color:var(--text-dim); font-family:var(--mono);}
+
+  /* APPROVE */
+  .queue-card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px;}
+  .queue-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px;}
+  .queue-who{font-family:var(--mono); font-size:11px; color:var(--text-dim); margin-top:4px;}
+  .queue-actions{display:flex; gap:8px; margin-top:12px;}
+  .btn-approve{background:rgba(63,203,124,0.14); color:var(--green); border:1px solid rgba(63,203,124,0.3); font-family:var(--mono); font-size:11.5px; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:600;}
+  .btn-reject{background:rgba(248,94,94,0.1); color:var(--red); border:1px solid rgba(248,94,94,0.25); font-family:var(--mono); font-size:11.5px; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:600;}
+  .btn-confirm{background:rgba(242,179,61,0.12); color:var(--amber); border:1px solid rgba(242,179,61,0.3); font-family:var(--mono); font-size:11.5px; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:600;}
+
+  @media(max-width:760px){
+    .navlinks{display:none;}
+    .conflict-diff{flex-direction:column;}
+    .diff-side.canvas{border-right:none; border-bottom:1px solid var(--border);}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">R/</div>
+    <div class="brand-name">roomsync<span> · classwork tracker</span></div>
+    <div class="room-pill">◆ CYB-201 ▾</div>
+  </div>
+  <div class="navlinks">
+    <a href="#home">Home</a>
+    <a href="#conflicts">Conflicts</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#notes">Notes</a>
+    <a href="#approve">Approve</a>
+  </div>
+  <div class="top-right">
+    <div class="bell">🔔<div class="dot"></div></div>
+    <div class="avatar">SH</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="eyebrow">Room feed</div>
+    <div class="sec-title">CYB-201</div>
+    <div class="sec-sub">14 members · next deadline in real time</div>
+
+    <div class="hero">
+      <div class="hero-eyebrow">Next up</div>
+      <div class="hero-body">
+        <div>
+          <div class="hero-title">OS History Project — Decade 5 Section (2000s)</div>
+          <div class="hero-meta">
+            <span class="hero-tag">CYB-201</span>
+            <span>Assigned to Thomas Franco</span>
+            <span>Confirmed by 5 classmates</span>
+          </div>
+        </div>
+        <div>
+          <div class="countdown" id="countdown">18:42:07</div>
+          <div class="countdown-label">until due · Fri 11:59 PM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list">
+      <div class="todo-card">
+        <div class="due-chip due-soon">TMR<span class="d">21</span></div>
+        <div class="todo-info">
+          <div class="todo-title">CodeChum — Recursive Functions Set B</div>
+          <div class="todo-meta"><span class="subject-tag">Python</span><span>Uploaded by Alex M.</span></div>
+        </div>
+        <div class="status-pill status-approved">Confirmed</div>
+      </div>
+      <div class="todo-card">
+        <div class="due-chip due-mid">WED<span class="d">23</span></div>
+        <div class="todo-info">
+          <div class="todo-title">Midterm Exam — Networking Fundamentals</div>
+          <div class="todo-meta"><span class="exam-tag">EXAM · admin-posted</span><span>Room 302</span></div>
+        </div>
+        <div class="status-pill status-approved">Confirmed</div>
+      </div>
+      <div class="todo-card">
+        <div class="due-chip due-mid">FRI<span class="d">25</span></div>
+        <div class="todo-info">
+          <div class="todo-title">Data Structures — 2D Array Lab</div>
+          <div class="todo-meta"><span class="subject-tag">DSA</span><span>Uploaded by Jen R.</span></div>
+        </div>
+        <div class="status-pill status-pending">Pending</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFLICT DETECTOR -->
+  <section id="conflicts">
+    <div class="eyebrow">Deadline conflict detector</div>
+    <div class="sec-title">Canvas vs classroom reality</div>
+    <div class="sec-sub">Auto-flags when the official LMS date doesn't match what classmates reported in person</div>
+
+    <div class="conflict-card">
+      <div class="conflict-flag">⚠ mismatch detected — unconfirmed</div>
+      <div class="conflict-title">Java Bank Teller — Exception Handling Patch</div>
+      <div class="conflict-diff">
+        <div class="diff-side canvas">
+          <div class="diff-label">Canvas (synced 2h ago)</div>
+          <div class="diff-date">Jul 25</div>
+          <div class="diff-src">via Instructure API</div>
+        </div>
+        <div class="diff-side peer">
+          <div class="diff-label">Peer-reported</div>
+          <div class="diff-date">Jul 28</div>
+          <div class="diff-src">reported by marco.t — "prof moved it in class"</div>
+        </div>
+      </div>
+      <div class="quorum">
+        <span>2 / 3 confirmations</span>
+        <div class="quorum-bar"><div class="quorum-fill"></div></div>
+        <span>66%</span>
+      </div>
+      <div class="conflict-actions">
+        <button class="btn-confirm">✓ I heard this too</button>
+        <button class="btn-ghost">Notify prof to update Canvas</button>
+      </div>
+    </div>
+
+    <div class="conflict-card resolved">
+      <div class="conflict-flag ok">✓ verified — dates match</div>
+      <div class="conflict-title">HTML5 Layout Quiz — Flexbox &amp; Grid</div>
+      <div class="conflict-diff">
+        <div class="diff-side canvas">
+          <div class="diff-label">Canvas</div>
+          <div class="diff-date">Jul 23</div>
+          <div class="diff-src">via Instructure API</div>
+        </div>
+        <div class="diff-side peer">
+          <div class="diff-label">Peer-reported</div>
+          <div class="diff-date">Jul 23</div>
+          <div class="diff-src">reported by shrood</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="calendar">
+    <div class="eyebrow">Room calendar</div>
+    <div class="sec-title">July 2026</div>
+    <div class="sec-sub">Exam dates are locked — only admin can post them</div>
+
+    <div class="cal-grid">
+      <div class="cal-dow">Sun</div><div class="cal-dow">Mon</div><div class="cal-dow">Tue</div><div class="cal-dow">Wed</div><div class="cal-dow">Thu</div><div class="cal-dow">Fri</div><div class="cal-dow">Sat</div>
+      <div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div>
+      <div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell">4</div>
+      <div class="cal-cell">5</div><div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell">8</div><div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell">11</div>
+      <div class="cal-cell">12</div><div class="cal-cell">13</div><div class="cal-cell">14</div><div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell">18</div>
+      <div class="cal-cell">19</div><div class="cal-cell today">20</div>
+      <div class="cal-cell">21<div class="cal-dot" style="background:var(--red)"></div></div>
+      <div class="cal-cell exam-day">22<div class="cal-dot" style="background:var(--red)"></div></div>
+      <div class="cal-cell">23<div class="cal-dot" style="background:var(--amber)"></div></div>
+      <div class="cal-cell">24</div>
+      <div class="cal-cell">25<div class="cal-dot" style="background:var(--amber)"></div></div>
+      <div class="cal-cell">26</div><div class="cal-cell">27</div><div class="cal-cell">28</div><div class="cal-cell">29</div><div class="cal-cell">30</div><div class="cal-cell">31</div>
+    </div>
+    <div class="cal-legend">
+      <span><span class="leg-dot" style="background:var(--red)"></span>Exam</span>
+      <span><span class="leg-dot" style="background:var(--amber)"></span>Task due</span>
+      <span><span class="leg-dot" style="background:var(--amber); box-shadow:0 0 0 1px var(--border)"></span>Today</span>
+    </div>
+    <div class="exam-lock-note">only admin can create "exam" type events · members can view only</div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes">
+    <div class="eyebrow">Notes</div>
+    <div class="sec-title">Shared files &amp; references</div>
+    <div class="sec-sub">Peer study material — not official course content</div>
+    <button class="btn btn-ghost" style="margin-bottom:16px;" onclick="alert('Upload dialog goes here')">↑ Upload</button>
+    <div class="notes-grid">
+      <div class="note-card"><div class="note-icon">PDF</div><div class="note-title">OS Timeline — 1990s draft</div><div class="note-meta">Thomas · 2 days ago</div></div>
+      <div class="note-card"><div class="note-icon">PY</div><div class="note-title">recursion_examples.py</div><div class="note-meta">Alex M. · yesterday</div></div>
+      <div class="note-card"><div class="note-icon">IMG</div><div class="note-title">flexbox_cheatsheet.png</div><div class="note-meta">Shrood · today</div></div>
+      <div class="note-card"><div class="note-icon">DOC</div><div class="note-title">CC Exam — Domain 3 notes</div><div class="note-meta">Jen R. · 4 days ago</div></div>
+    </div>
+  </section>
+
+  <!-- APPROVE -->
+  <section id="approve">
+    <div class="eyebrow">Admin</div>
+    <div class="sec-title">Approval queue</div>
+    <div class="sec-sub">3 pending</div>
+
+    <div class="queue-card">
+      <div class="queue-top">
+        <div>
+          <div class="todo-title">Data Structures — 2D Array Lab</div>
+          <div class="queue-who">submitted by jen.r · due Jul 25</div>
+        </div>
+        <span class="subject-tag">DSA</span>
+      </div>
+      <div class="queue-actions">
+        <button class="btn-approve">✓ Approve</button>
+        <button class="btn-reject">✕ Reject</button>
+      </div>
+    </div>
+    <div class="queue-card">
+      <div class="queue-top">
+        <div>
+          <div class="todo-title">Java Bank Teller — Exception Handling Patch</div>
+          <div class="queue-who">submitted by marco.t · due Jul 28 (conflict — see above)</div>
+        </div>
+        <span class="subject-tag">Java</span>
+      </div>
+      <div class="queue-actions">
+        <button class="btn-approve">✓ Approve</button>
+        <button class="btn-reject">✕ Reject</button>
+      </div>
+    </div>
+    <div class="queue-card">
+      <div class="queue-top">
+        <div>
+          <div class="todo-title">Web Design — Brew Haven footer fix writeup</div>
+          <div class="queue-who">submitted by shrood · due Jul 26</div>
+        </div>
+        <span class="subject-tag">Web Dev</span>
+      </div>
+      <div class="queue-actions">
+        <button class="btn-approve">✓ Approve</button>
+        <button class="btn-reject">✕ Reject</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const dueDate = new Date();
+dueDate.setHours(dueDate.getHours() + 18, dueDate.getMinutes() + 42, 7);
+function tick(){
+  const now = new Date();
+  let diff = Math.max(0, dueDate - now);
+  const h = String(Math.floor(diff/3600000)).padStart(2,'0');
+  const m = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  const s = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  document.getElementById('countdown').textContent = `${h}:${m}:${s}`;
+}
+setInterval(tick, 1000);
+tick();
+</script>
+</body>
+</html>
