@@ -4,41 +4,134 @@
    Review Assignment
    
    TSS Typographic Style Sheet
-   Author: 
-   Date:   
+   Author: Franco, Thomas James V. | CYB 201
+   Date:   5, August 2026
    
    Filename: coach_styles.css
 
 */
+@charset "utf-8";
+@font-face {
+   font-family: "nobile";
+   src: url("nobile-webfont.woff") format("woff"),
+        url("nobile-webfont.ttf") format("truetype");
+}
 
 
 /* Main Structural Styles */
+html{
+   background-color: hsl(27, 72%, 72%);
+
+}
+body{
+   color: rgb(91,91,91);
+   background-color: ivory;
+   font-family: "verdana", "geneva", sans-serif;
+}
+
+body > footer address{
+   background-color: rgb(222,128, 60);
+   color: rgb(255, 255, 255, 0.6);
+   font-style: normal;
+   font-size: 0.9em;
+   line-height: 3em;
+   font-family: "nobile", "verdana", "geneva", sans-serif;
+   text-align: center;
+   font-weight: bold;
+   font-variant: small-caps;
 
 
-
-
+}
 /* Heading Styles */
+h1{
+   align-items: baseline;
+   font-weight: normal;
+   font-family: "nobile", "verdana", "geneva", sans-serif;
+   letter-spacing: 0.2em;
+   margin: 0px;
+}
+
+section#tss_coaches h1{
+   font-size: 2.5em;
+   color: hsl(27, 82%, 85%);
+   background-color: hsl(27, 6%, 21%);
+   padding-left: 10px;
+}
+
+article.coach_bio h2{
+   font-size: 1.6em;
+   font-weight: normal;
+   color: rgb(240,125,0);
+}
+
+
+
 
 
 
 /* Blockquote Styles */
+aside blockquote{
+   font-size: 0.95em;
+   font-family: "comic sans MS", "cursive";
+   color: rgb(222,128, 60);
+   background-color: rgba(255,255,255,0.75);
+   padding: 10px;
+}
 
-
-
+aside blockquote::before{
+   content: "\201C";
+   font-size: 1.6em;
+   font-family: "Times New Roman", "Times", "serif";
+}
+aside blockquote::after{
+   content: "\201D";
+   font-size: 1.6em;
+   font-family: "Times New Roman", "Times", "serif";
+}
 
 /* Navigation Styles */	
 
+body > nav{
+   font-size: 0.8em;
+   line-height: 2em;
+}
 
+nav > ul{
+   list-style-type: none;
+   padding-left: 5px;
+}
+
+nav > ul > li:nth-child(6),
+nav > ul > li:nth-child(16) {
+  margin-top: 20px;
+}
+
+nav > ul > li a:link,
+nav > ul > li a:visited {
+  color: rgb(151, 151, 151);
+  text-decoration: none;
+}
+
+nav > ul > li a:hover,
+nav > ul > li a:active {
+  color: rgb(222, 128, 60);
+  text-decoration: underline;
+}
 
 
 /* Paragraph Styles */
+p{
+   margin: 10px 30px 10px 0px;
+}
 
 
 
 /* List Styles */
 
-
-
+article.coach_bio > header > ul {
+    list-style-image: url("check.png");
+    margin: 0 0 10px 0;
+}
 
 
 
