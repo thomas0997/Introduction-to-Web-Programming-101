@@ -1,0 +1,374 @@
+/* ============================================================
+   Forward Fitness Club - styles.css
+   Reference site built from Chapter 7: Improving Web Design
+   with New Page Layouts (HTML5 semantic elements + CSS grid)
+   ============================================================ */
+
+/* CSS reset - box-sizing applied to all elements, section/article/
+   aside/figure/figcaption added per chapter instructions */
+* {
+  box-sizing: border-box;
+}
+
+body, header, nav, main, footer, h1, h2, h3, p, ul, li, img,
+figure, figcaption, section, article, aside {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Calibri, Arial, sans-serif;
+  color: #1b2b34;
+  background-color: #fff;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Header ---------- */
+header {
+  background-color: #023436;
+  color: #fff;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header img {
+  width: 48px;
+  height: 48px;
+}
+
+header h1 {
+  font-size: 1.3em;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+/* ---------- Nav ---------- */
+nav {
+  background-color: #028090;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+nav li {
+  text-align: center;
+}
+
+nav a {
+  display: block;
+  padding: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover,
+nav a.active {
+  background-color: #02635e;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background-color: #023436;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85em;
+}
+
+/* ---------- Hero images ---------- */
+#hero img {
+  width: 100%;
+  display: block;
+}
+
+/* ============================================================
+   HOME PAGE - figure/figcaption grid (index.html)
+   ============================================================ */
+main.grid {
+  padding: 20px;
+}
+
+.grid {
+  display: block;
+}
+
+main p.intro {
+  margin-bottom: 20px;
+}
+
+main .action {
+  text-shadow: 1px 1px 2px #ccc;
+}
+
+.frame {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto 15px;
+  opacity: 0.92;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.frame:hover {
+  opacity: 1;
+  box-shadow: 6px 10px 16px rgba(0, 0, 0, 0.35);
+}
+
+.frame img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+.pic-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(2, 52, 54, 0.75);
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* ============================================================
+   ABOUT US PAGE - section elements (about.html)
+   ============================================================ */
+main.about-content {
+  padding: 20px;
+}
+
+main.about-content section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e3e9e8;
+}
+
+main.about-content section:last-child {
+  border-bottom: none;
+}
+
+main.about-content h2 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px #ccc;
+}
+
+main.about-content img.rounded {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+main.about-content ul.tablet-desktop {
+  margin: 10px 0 10px 20px;
+}
+
+/* ============================================================
+   NUTRITION PAGE - article + aside + CSS grid (nutrition.html)
+   ============================================================ */
+main.grid#nutrition-main {
+  padding: 20px;
+}
+
+main.grid#nutrition-main article {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e3e9e8;
+}
+
+main.grid#nutrition-main article:last-child {
+  border-bottom: none;
+}
+
+main.grid#nutrition-main article h3 {
+  font-size: 1.25em;
+  margin: 12px 0 8px;
+  text-align: center;
+  text-shadow: 1px 1px 2px #ccc;
+}
+
+main.grid#nutrition-main article img.round {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+main.grid#nutrition-main article p {
+  font-size: 0.95em;
+  margin-top: 8px;
+}
+
+main.grid#nutrition-main article ul {
+  margin: 10px 0 0 20px;
+}
+
+aside.tablet-desktop {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(204, 204, 204, 0.3);
+  border-radius: 8px;
+  box-shadow: 5px 5px 8px #000;
+}
+
+aside.tablet-desktop p {
+  margin-bottom: 10px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+aside.tablet-desktop p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   SERVICES PAGE - article + aside + CSS grid (services.html)
+   ============================================================ */
+section.grid article {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e3e9e8;
+}
+
+section.grid article:last-child {
+  border-bottom: none;
+}
+
+article h2 {
+  font-size: 1.4em;
+  margin: 12px 0 8px;
+  text-shadow: 1px 1px 2px #ccc;
+}
+
+article p {
+  font-size: 0.95em;
+  color: #3c4a4d;
+}
+
+article aside {
+  margin-top: 12px;
+  padding: 12px 15px;
+  background-color: rgba(2, 195, 154, 0.12);
+  border-radius: 6px;
+}
+
+article aside p {
+  font-size: 0.85em;
+  font-style: italic;
+  color: #028090;
+  margin: 0;
+}
+
+/* ============================================================
+   TABLET VIEWPORT (768px and up)
+   ============================================================ */
+@media screen and (min-width: 768px) {
+
+  nav ul {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  nav li {
+    flex: 1;
+  }
+
+  main.grid {
+    padding: 30px 40px;
+  }
+
+  /* Home page: three-column figure grid */
+  #home-figures.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+  }
+
+  /* Services page: three-column article grid */
+  section#classes.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+  }
+
+  section.grid article {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  /* Nutrition page: three-column article grid, aside spans all columns */
+  main.grid#nutrition-main {
+    padding: 30px 40px;
+  }
+
+  main.grid#nutrition-main {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+  }
+
+  main.grid#nutrition-main article {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  aside.tablet-desktop {
+    grid-column: 1 / span 3;
+  }
+
+  /* About Us page: side-by-side content and image */
+  main.about-content {
+    padding: 30px 40px;
+  }
+
+  main.about-content section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    align-items: start;
+  }
+
+}
+
+/* ============================================================
+   DESKTOP VIEWPORT (1024px and up)
+   ============================================================ */
+@media screen and (min-width: 1024px) {
+
+  header h1 {
+    font-size: 1.8em;
+  }
+
+  main.grid,
+  main.about-content,
+  main.grid#nutrition-main {
+    padding: 40px 80px;
+  }
+
+  #home-figures.grid,
+  section#classes.grid,
+  main.grid#nutrition-main {
+    grid-gap: 40px;
+  }
+
+  article h2,
+  main.grid#nutrition-main article h3,
+  main.about-content h2 {
+    font-size: 1.6em;
+  }
+
+}
