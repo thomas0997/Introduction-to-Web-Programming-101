@@ -6,17 +6,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Favicon: LAB ANSWER KEY - Task 8 -->
-<link rel="shortcut icon" href="images/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-<link rel="icon" sizes="192x192" href="images/android-chrome-192.png">
+<link rel="shortcut icon" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
+<link rel="icon" sizes="192x192" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
+
+<!-- Google Fonts: Poppins for headings, Nunito Sans for body copy -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-  <img src="images/logo.png" alt="Forward Fitness Club logo">
+  <img class="site-logo" src="https://i.pinimg.com/736x/64/56/86/64568619e7ac8940bb75072513e62b23.jpg" alt="Forward Fitness Club logo">
   <h1>Forward Fitness Club</h1>
 </header>
 
@@ -30,57 +35,72 @@
   </ul>
 </nav>
 
-<!-- Services Hero Image -->
+<!-- Services Hero Image: figure/figcaption for the banner. The aside
+     is a quick-tip card that sits directly below the image, in normal
+     flow, at every screen size, so it never sits on top of the photo -->
 <div id="hero">
-  <img src="images/hero-services.jpg" alt="group exercising together">
+  <figure>
+    <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGZpdG5lc3N8ZW58MHwwfDB8fHww" alt="group exercising together at sunrise">
+    <figcaption class="hero-caption">Real members, real energy. See what a morning at Forward Fitness feels like.</figcaption>
+  </figure>
+  <aside class="hero-aside">
+    <p class="tip-label">Quick Tip</p>
+    <p>New here? Ask any coach about a free trial class before you commit to a membership.</p>
+  </aside>
 </div>
 
 <main class="grid">
 
   <!-- LAB ANSWER KEY - Tasks 2 through 6 -->
-  <!-- Section groups the three class offerings; the grid class turns it into a 3-column layout on tablet/desktop -->
+  <!-- Section groups the three class offerings under one heading; the grid
+       class turns it into a 3-column layout on tablet/desktop -->
   <section id="classes" class="grid">
+
+    <h2 class="section-title">Our Class Offerings</h2>
 
     <article>
       <figure class="frame">
-        <img src="images/yoga.jpg" alt="instructor leading a yoga class">
-        <figcaption class="pic-text">Yoga</figcaption>
+        <img src="https://images.unsplash.com/photo-1585154536515-c766bd2a6cdc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHlvZ2F8ZW58MHwyfDB8fHww" alt="instructor leading a yoga class">
+        <figcaption class="pic-text">Slow down, breathe deep, and find your calm before the day speeds up.</figcaption>
       </figure>
-      <h2>Yoga</h2>
+      <h3>Yoga</h3>
       <p>Build flexibility, balance, and calm with guided flows suited to every
         experience level. Classes run 45 minutes and all mats and props are
         provided.</p>
       <aside>
-        <p>Tip: Arrive 10 minutes early to reserve a mat near the front for the
+        <p class="tip-label">Quick Tip</p>
+        <p>Arrive 10 minutes early to reserve a mat near the front for the
           best view of the instructor.</p>
       </aside>
     </article>
 
     <article>
       <figure class="frame">
-        <img src="images/strength.jpg" alt="member using free weights">
-        <figcaption class="pic-text">Strength</figcaption>
+        <img src="https://images.unsplash.com/photo-1734980339741-6255c609961a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z3ltfGVufDB8MnwwfHx8MA%3D%3D" alt="member using free weights">
+        <figcaption class="pic-text">Every rep adds up. Walk out stronger than you walked in.</figcaption>
       </figure>
-      <h2>Strength</h2>
+      <h3>Strength</h3>
       <p>A full-body circuit using free weights and resistance machines to build
         muscle and improve bone density. Modifications are offered for every
         fitness level.</p>
       <aside>
-        <p>Tip: Bring a water bottle and a towel; this class moves quickly
+        <p class="tip-label">Quick Tip</p>
+        <p>Bring a water bottle and a towel; this class moves quickly
           between stations.</p>
       </aside>
     </article>
 
     <article>
       <figure class="frame">
-        <img src="images/cardio.jpg" alt="members on cardio equipment">
-        <figcaption class="pic-text">Cardio</figcaption>
+        <img src="https://plus.unsplash.com/premium_photo-1770494458904-32ab2750799b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGNhcmRpb3xlbnwwfDJ8MHx8fDA%3D" alt="members on cardio equipment">
+        <figcaption class="pic-text">Push your pace and feel your energy climb with every interval.</figcaption>
       </figure>
-      <h2>Cardio</h2>
+      <h3>Cardio</h3>
       <p>High-energy interval training designed to raise your heart rate, burn
         calories, and boost endurance. No equipment experience required.</p>
       <aside>
-        <p>Tip: Wear supportive athletic shoes; this class includes jumping
+        <p class="tip-label">Quick Tip</p>
+        <p>Wear supportive athletic shoes; this class includes jumping
           intervals.</p>
       </aside>
     </article>
@@ -92,6 +112,7 @@
 <footer>
   <p>&copy; Copyright 2026, All Rights Reserved</p>
   <p>forwardfitness@fitnessclub.com</p>
+  <p>Made by Thomas Franco; CYB201</p>
 </footer>
 
 </body>

@@ -2,7 +2,28 @@
    Forward Fitness Club - styles.css
    Reference site built from Chapter 7: Improving Web Design
    with New Page Layouts (HTML5 semantic elements + CSS grid)
+   Color palette source: colorpalette.org (blue-hour mountain photo)
    ============================================================ */
+
+/* ---------- Color palette (custom properties) ---------- */
+:root {
+  --navy-deep:   #052346; /* header / footer / darkest text     */
+  --navy:        #04385e; /* nav background, strong accents     */
+  --teal-dark:   #0b506e; /* nav hover / active link             */
+  --teal:        #057ba6; /* links, focus accents                */
+  --blue:        #308bb1; /* buttons, tags, section title        */
+  --blue-mid:    #5293b5; /* figcaption bands                    */
+  --blue-light:  #57a2cc; /* aside accent border                 */
+  --blue-gray:   #7ca0c0; /* secondary text, muted borders       */
+  --sky:         #8bb4cf; /* light backgrounds                   */
+  --lavender:    #b2b6cc; /* subtle borders / dividers           */
+  --blush:       #e0d1da; /* soft tint background                */
+  --mauve:       #9d8fa3; /* secondary accent                    */
+  --white:       #ffffff;
+
+  --font-heading: 'Poppins', Arial, sans-serif;
+  --font-body: 'Nunito Sans', Calibri, Arial, sans-serif;
+}
 
 /* CSS reset - box-sizing applied to all elements, section/article/
    aside/figure/figcaption added per chapter instructions */
@@ -17,10 +38,14 @@ figure, figcaption, section, article, aside {
 }
 
 body {
-  font-family: Calibri, Arial, sans-serif;
-  color: #1b2b34;
-  background-color: #fff;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  color: var(--navy-deep);
+  background-color: var(--white);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
 }
 
 a {
@@ -29,8 +54,8 @@ a {
 
 /* ---------- Header ---------- */
 header {
-  background-color: #023436;
-  color: #fff;
+  background-color: var(--navy-deep);
+  color: var(--white);
   padding: 15px 20px;
   display: flex;
   align-items: center;
@@ -42,14 +67,19 @@ header img {
   height: 48px;
 }
 
+.site-logo {
+  border-radius: 10px;
+}
+
 header h1 {
   font-size: 1.3em;
+  font-weight: 700;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
 }
 
 /* ---------- Nav ---------- */
 nav {
-  background-color: #028090;
+  background-color: var(--navy);
 }
 
 nav ul {
@@ -58,36 +88,106 @@ nav ul {
   flex-direction: column;
 }
 
+/* Mobile default: links left-aligned within the stacked dropdown */
 nav li {
-  text-align: center;
+  text-align: left;
 }
 
 nav a {
   display: block;
   padding: 12px;
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 0.9em;
+  letter-spacing: 0.3px;
+  transition: background-color 0.2s ease;
 }
 
 nav a:hover,
 nav a.active {
-  background-color: #02635e;
+  background-color: var(--teal-dark);
 }
 
 /* ---------- Footer ---------- */
 footer {
-  background-color: #023436;
-  color: #fff;
+  background-color: var(--navy-deep);
+  color: var(--sky);
   text-align: center;
   padding: 20px;
   font-size: 0.85em;
 }
 
 /* ---------- Hero images ---------- */
+#hero {
+  position: relative;
+}
+
+#hero figure {
+  position: relative;
+}
+
 #hero img {
   width: 100%;
   display: block;
+}
+
+/* Dark navy gradient laid over the hero photo so light text stays
+   readable no matter what the source image looks like */
+#hero figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(5, 35, 70, 0.05) 0%,
+    rgba(5, 35, 70, 0.35) 60%,
+    rgba(5, 35, 70, 0.85) 100%);
+  pointer-events: none;
+}
+
+.hero-caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 18px 20px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--white) !important;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+}
+
+/* Hero aside: a plain quick-tip card that sits below the hero image
+   in normal document flow, at every screen size. It never overlaps
+   or sits on top of the photo. */
+.hero-aside {
+  margin: 16px 20px 20px;
+  padding: 14px 18px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-left: 4px solid var(--teal);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(5, 35, 70, 0.18);
+}
+
+.hero-aside p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--navy-deep);
+}
+
+.tip-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--teal) !important;
+  margin-bottom: 4px !important;
 }
 
 /* ============================================================
@@ -106,7 +206,9 @@ main p.intro {
 }
 
 main .action {
-  text-shadow: 1px 1px 2px #ccc;
+  color: var(--teal);
+  font-weight: 700;
+  text-shadow: 1px 1px 2px var(--lavender);
 }
 
 .frame {
@@ -114,19 +216,22 @@ main .action {
   max-width: 100%;
   margin: 0 auto 15px;
   opacity: 0.92;
-  transition: opacity 0.2s ease, box-shadow 0.2s ease;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .frame:hover {
   opacity: 1;
-  box-shadow: 6px 10px 16px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 6px 12px 20px rgba(5, 35, 70, 0.45);
 }
 
 .frame img {
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   display: block;
   border-radius: 8px;
-  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 6px 10px rgba(5, 35, 70, 0.3);
 }
 
 .pic-text {
@@ -134,12 +239,13 @@ main .action {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(2, 52, 54, 0.75);
-  color: #fff;
-  padding: 10px;
+  background: linear-gradient(0deg, rgba(5, 35, 70, 0.88) 0%, rgba(5, 35, 70, 0.4) 100%);
+  color: var(--white);
+  padding: 14px 12px;
   text-align: center;
-  font-size: 1em;
-  font-weight: bold;
+  font-size: 0.95em;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
 }
 
 /* ============================================================
@@ -152,7 +258,7 @@ main.about-content {
 main.about-content section {
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e3e9e8;
+  border-bottom: 1px solid var(--lavender);
 }
 
 main.about-content section:last-child {
@@ -161,8 +267,9 @@ main.about-content section:last-child {
 
 main.about-content h2 {
   font-size: 1.4em;
+  font-weight: 700;
   margin-bottom: 10px;
-  text-shadow: 1px 1px 2px #ccc;
+  color: var(--navy-deep);
 }
 
 main.about-content img.rounded {
@@ -185,7 +292,7 @@ main.grid#nutrition-main {
 main.grid#nutrition-main article {
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e3e9e8;
+  border-bottom: 1px solid var(--lavender);
 }
 
 main.grid#nutrition-main article:last-child {
@@ -194,16 +301,24 @@ main.grid#nutrition-main article:last-child {
 
 main.grid#nutrition-main article h3 {
   font-size: 1.25em;
+  font-weight: 700;
   margin: 12px 0 8px;
   text-align: center;
-  text-shadow: 1px 1px 2px #ccc;
+  color: var(--navy-deep);
+  position: relative;
+  padding-bottom: 10px;
 }
 
-main.grid#nutrition-main article img.round {
-  width: 100%;
-  display: block;
-  border-radius: 8px;
-  margin: 0 auto;
+main.grid#nutrition-main article h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background-color: var(--teal);
+  border-radius: 2px;
 }
 
 main.grid#nutrition-main article p {
@@ -212,21 +327,53 @@ main.grid#nutrition-main article p {
 }
 
 main.grid#nutrition-main article ul {
-  margin: 10px 0 0 20px;
+  list-style: none;
+  margin: 10px 0 0 0;
+}
+
+main.grid#nutrition-main article ul li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 6px;
+  font-size: 0.95em;
+  color: var(--navy);
+}
+
+main.grid#nutrition-main article ul li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-weight: 700;
 }
 
 aside.tablet-desktop {
+  position: relative;
   margin-top: 20px;
-  padding: 15px;
-  background-color: rgba(204, 204, 204, 0.3);
+  padding: 34px 15px 15px;
+  background-color: var(--blush);
   border-radius: 8px;
-  box-shadow: 5px 5px 8px #000;
+  box-shadow: 5px 5px 8px rgba(5, 35, 70, 0.25);
+}
+
+aside.tablet-desktop::before {
+  content: "Did You Know?";
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--teal);
 }
 
 aside.tablet-desktop p {
   margin-bottom: 10px;
   font-style: italic;
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--navy);
 }
 
 aside.tablet-desktop p:last-child {
@@ -236,38 +383,63 @@ aside.tablet-desktop p:last-child {
 /* ============================================================
    SERVICES PAGE - article + aside + CSS grid (services.html)
    ============================================================ */
+.section-title {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--navy-deep);
+  text-align: center;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--teal);
+  border-radius: 3px;
+}
+
 section.grid article {
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e3e9e8;
+  border-bottom: 1px solid var(--lavender);
 }
 
 section.grid article:last-child {
   border-bottom: none;
 }
 
-article h2 {
+article h3 {
   font-size: 1.4em;
+  font-weight: 700;
   margin: 12px 0 8px;
-  text-shadow: 1px 1px 2px #ccc;
+  color: var(--navy-deep);
 }
 
 article p {
   font-size: 0.95em;
-  color: #3c4a4d;
+  color: var(--navy);
 }
 
+/* Sidebar-style tip card used for each class's aside */
 article aside {
   margin-top: 12px;
   padding: 12px 15px;
-  background-color: rgba(2, 195, 154, 0.12);
-  border-radius: 6px;
+  background-color: var(--blush);
+  border-left: 4px solid var(--blue-light);
+  border-radius: 0 6px 6px 0;
 }
 
-article aside p {
+article aside p:not(.tip-label) {
   font-size: 0.85em;
   font-style: italic;
-  color: #028090;
+  color: var(--teal-dark);
   margin: 0;
 }
 
@@ -278,15 +450,24 @@ article aside p {
 
   nav ul {
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
   }
 
   nav li {
     flex: 1;
+    text-align: center;
   }
 
   main.grid {
     padding: 30px 40px;
+  }
+
+  /* Hero stays full-width; the tip card just sits below it in normal
+     flow, centered with a comfortable max-width so it doesn't stretch
+     edge to edge on wider screens. */
+  .hero-aside {
+    margin: 16px auto 20px;
+    max-width: 500px;
   }
 
   /* Home page: three-column figure grid */
@@ -296,11 +477,15 @@ article aside p {
     grid-gap: 20px;
   }
 
-  /* Services page: three-column article grid */
+  /* Services page: three-column article grid, heading spans all columns */
   section#classes.grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
+  }
+
+  .section-title {
+    grid-column: 1 / span 3;
   }
 
   section.grid article {
@@ -309,14 +494,14 @@ article aside p {
     border-bottom: none;
   }
 
-  /* Nutrition page: three-column article grid, aside spans all columns */
+  /* Nutrition page: three-column article grid, heading spans all columns */
   main.grid#nutrition-main {
     padding: 30px 40px;
   }
 
-  main.grid#nutrition-main {
+  section#nutrition-topics.grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
   }
 
@@ -324,10 +509,6 @@ article aside p {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
-  }
-
-  aside.tablet-desktop {
-    grid-column: 1 / span 3;
   }
 
   /* About Us page: side-by-side content and image */
@@ -359,13 +540,17 @@ article aside p {
     padding: 40px 80px;
   }
 
+  .hero-aside {
+    max-width: 560px;
+  }
+
   #home-figures.grid,
   section#classes.grid,
-  main.grid#nutrition-main {
+  section#nutrition-topics.grid {
     grid-gap: 40px;
   }
 
-  article h2,
+  article h3,
   main.grid#nutrition-main article h3,
   main.about-content h2 {
     font-size: 1.6em;
