@@ -190,6 +190,41 @@ footer {
   margin-bottom: 4px !important;
 }
 
+/* ---------- Stats strip (services.html) ---------- */
+.stats-strip {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--navy-deep);
+  color: var(--white);
+}
+
+.stat {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stat:last-child {
+  border-bottom: none;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--sky);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  color: var(--lavender);
+}
+
 /* ============================================================
    HOME PAGE - figure/figcaption grid (index.html)
    ============================================================ */
@@ -309,6 +344,45 @@ main.grid#nutrition-main article h3 {
   padding-bottom: 10px;
 }
 
+.topic-badge {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 8px;
+  padding: 4px 12px;
+  background-color: var(--sky);
+  color: var(--navy-deep);
+  font-family: var(--font-heading);
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+}
+
+article.featured {
+  background-color: var(--blush);
+  border-radius: 12px;
+  padding: 16px;
+  border-bottom: none !important;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background-color: var(--teal);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(5, 35, 70, 0.3);
+}
+
 main.grid#nutrition-main article h3::after {
   content: "";
   position: absolute;
@@ -324,6 +398,10 @@ main.grid#nutrition-main article h3::after {
 main.grid#nutrition-main article p {
   font-size: 0.95em;
   margin-top: 8px;
+}
+
+.recipe-closing {
+  padding-bottom: 20px;
 }
 
 main.grid#nutrition-main article ul {
@@ -462,6 +540,21 @@ article aside p:not(.tip-label) {
     padding: 30px 40px;
   }
 
+  .stats-strip {
+    flex-direction: row;
+  }
+
+  .stat {
+    flex: 1;
+    padding: 24px 16px;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .stat:last-child {
+    border-right: none;
+  }
+
   /* Hero stays full-width; the tip card just sits below it in normal
      flow, centered with a comfortable max-width so it doesn't stretch
      edge to edge on wider screens. */
@@ -550,7 +643,7 @@ article aside p:not(.tip-label) {
     grid-gap: 40px;
   }
 
-  article h3,
+  article h3, 
   main.grid#nutrition-main article h3,
   main.about-content h2 {
     font-size: 1.6em;

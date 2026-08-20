@@ -5,10 +5,10 @@
 <title>Forward Fitness Club - Nutrition</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="shortcut icon" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
-<link rel="icon" sizes="192x192" href="https://img.icons8.com/?size=160&id=iBcuyRJD3XCc&format=png">
+<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" sizes="192x192" href="images/android-chrome-192.png">
 
 <!-- Google Fonts: Poppins for headings, Nunito Sans for body copy -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,6 +43,23 @@
   </figure>
 </div>
 
+<!-- Quick stats strip: a personalized touch highlighting three quick facts
+     about the nutrition content, with divider lines between each stat -->
+<div class="stats-strip">
+  <div class="stat">
+    <span class="stat-number">3</span>
+    <span class="stat-label">Nutrition Topics Covered</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">30</span>
+    <span class="stat-label">Minutes or Less to Prep</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">2,000</span>
+    <span class="stat-label">Recommended Daily Calories</span>
+  </div>
+</div>
+
 <main id="nutrition-main" class="grid">
 
   <!-- Section groups the three nutrition topics under one heading; the
@@ -57,6 +74,7 @@
         <figcaption class="pic-text">Think of food as fuel, not a reward or a punishment.</figcaption>
       </figure>
       <h3>Food for Thought</h3>
+      <span class="topic-badge">Mindset</span>
       <p>Good nutrition is a lifestyle, not a diet. It starts with a new way
         of thinking about food. Think of your body as a vehicle that uses
         food for fuel. Fill your tank with the right type of fuel.</p>
@@ -68,6 +86,7 @@
         <figcaption class="pic-text">Real, colorful ingredients make every plate work harder for you.</figcaption>
       </figure>
       <h3>What to Eat</h3>
+      <span class="topic-badge">Quick Guide</span>
       <p>Use the following as a guideline:</p>
       <ul>
         <li>Protein, such as eggs, chicken, and fish</li>
@@ -77,12 +96,14 @@
       </ul>
     </article>
 
-    <article>
+    <article class="featured">
       <figure class="frame">
+        <span class="featured-badge">Featured</span>
         <img src="https://images.unsplash.com/photo-1708782340359-9a702842ee4a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHBsYXRlJTIwb2YlMjBjaGlja2VufGVufDB8MnwwfHx8MA%3D%3D" alt="herb roasted chicken">
         <figcaption class="pic-text">Simple ingredients, big flavor, ready in under thirty minutes.</figcaption>
       </figure>
       <h3>Meal of the Week</h3>
+      <span class="topic-badge">30 Min • Serves 4</span>
       <p><strong>Herb Roasted Chicken</strong></p>
       <p>Ingredients:</p>
       <ul>
@@ -91,7 +112,7 @@
         <li>1 tsp garlic powder</li>
         <li>Fresh rosemary and thyme</li>
       </ul>
-      <p>Season the chicken and roast at 400 degrees F until cooked through,
+      <p class="recipe-closing">Season the chicken and roast at 400 degrees F until cooked through,
         about 20-25 minutes. Let rest for a few minutes before serving.</p>
     </article>
 
